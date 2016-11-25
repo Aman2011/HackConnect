@@ -1,0 +1,22 @@
+{
+  "name": "hackconnect",
+  "description": "Networking site for developers",
+  "main": "index.js",
+  "authors": [
+    "Aman Rawal"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Aman2011/HackConnect",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "toastr": "^2.1.3",
+    "angular": "^1.5.8",
+    "angular-resource": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "bootstrap": "^3.3.7"
+  },
+  "resolutions": {
+    "jquery": "^3.1.1"
+  }
+}
