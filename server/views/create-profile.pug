@@ -1,0 +1,121 @@
+extends ../includes/layout
+
+block scripts
+    script(type="text/javascript", src="/vendor/typeahead.js/dist/typeahead.jquery.js")
+    script(type="text/javascript", src="/vendor/typeahead.js/dist/bloodhound.js")
+
+block main-content
+    script(type='text/ng-template', id='schoolTpl.html').
+        <a tabindex="-1">
+            <div>{{match.model.name}}</div>
+            <div class='clr-gray-light'>{{match.model.country}}</div>
+        </a>
+
+    form.mg-top-40(name="createProfile" ng-controller="CreateProfileCtrl" novalidate)
+        h3.text-center Welcome to Hack Connect, Tell us a little bit more about yourself.
+        p.text-center.clr-gray-light This will help us connect you with the right people for your project
+        section
+            .row
+                .col-sm-offset-2.col-sm-8
+                    .panel.panel-default
+                        .panel-body
+                            .form-group
+                                label(for="country") Country
+                                input#country.form-control(type="text" name="country" ng-model="profile.address.country" uib-typeahead="suggestion for suggestion in countries | filter: $viewValue | limitTo: 8")
+                            .form-group
+                                label(for="city") City
+                                input.form-control#city(type='text' name="city" ng-model="profile.address.city")
+                            .form-group.radio-group
+                                label.radio-label Are you a student?
+                                label.radio-inline(ng-init="isStudent = isEmpty(profile.employment.company) ? true:false")
+                                    input(type="radio" name="isStudent" ng-model="isStudent" ng-value="true")
+                                    | Yes
+                                label.radio-inline
+                                    input(type="radio" name="isStudent" ng-model="isStudent" ng-value="false")
+                                    | No
+                            div(ng-show="isStudent")
+                                .form-group
+                                    label(for="school") School
+                                    input.hidden#school-country(name="school_country" ng-model="profile.education.country")
+                                    input#school.form-control(type="text"
+                                                                name="school"
+                                                                ng-model="profile.education.school"
+                                                                uib-typeahead="school as school.name for school in schools | filter:{name: $viewValue} | limitTo: 8"
+                                                                typeahead-template-url="schoolTpl.html"
+                                                                typeahead-on-select="onSelect($item, $model, $label)")
+                                .form-group
+                                    label(for="degree") Degree
+                                    input#degree.form-control(type="text" name="degree" ng-model="profile.education.degree" uib-typeahead="suggestion for suggestion in degree | filter: $viewValue | limitTo: 8" )
+                            div(ng-hide="isStudent")
+                                .form-group
+                                    label(for="company") Company
+                                    input#company.form-control(name="company" type="text" ng-model="profile.employment.company" uib-typeahead="company for company in companies | filter: $viewValue | limitTo: 8")
+                            .form-group
+                                label.block(for="role") Role
+                                select.form-control.hidden#role(name="role")
+                                    option(value="")
+                                    option(ng-repeat="role in roles track by $index" value="{{role}}" ng-selected="selectedRole == role")
+                                label.label.label-default(ng-repeat="role in roles track by $index" ng-click="selectRole(role)" ng-class="selectedRole == role ? 'active':''")
+                                    | {{role}}
+                            .form-group
+                                label.block(for="typeProject") What type of projects are you interested in?
+                                select.form-control.hidden#typeProject(name="projectTypes" multiple)
+                                    option(ng-repeat="projectType in selectedTypes track by $index" value="{{projectType}}" selected)
+                                label.label.label-default(ng-repeat="projectType in projectTypes track by $index" ng-click="toggleProjectType(projectType, $event)")
+                                    | {{projectType}}
+                            .form-group
+                                label(for="skills") Please select all the skills you are proficient in.
+                                select#skills.sr-only(name="skills" multiple)
+                                    option(ng-repeat="skill in skills track by $index" value="{{skill}}" selected)
+                                .tags-input-container
+                                    .tags-container
+                                        label.label.label-default(ng-repeat="skill in skills track by $index")
+                                            | {{skill}}
+                                            span.fa.fa-times(ng-click="removeSkill(skill)")
+
+                                    input.form-control.tags-typeahead(type="text" data-file-name="skills" placeholder="Type here")
+
+                            .form-group
+                                label Please upload your profile picture
+                                    .picture-container.mg-top-20
+                                        img.profile-pic(src="{{profile.picture}}")
+                                        a.clr-gray-light(data-toggle="modal" data-target="#uploadModal")  Choose a Photo
+                                        span.err(ng-show='errorMsg') {{errorMsg}}
+                            .form-group
+                                label(for="bio") Please describe yourself in a few lines
+                                textarea.form-control#bio(name="bio" ng-model="profile.bio")
+                            button.btn.btn-primary(type="button" ng-click="submitForm()") Create Profile
+
+        #uploadModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+                                .modal-dialog(role='document')
+                                    .modal-content
+                                        .modal-header
+                                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                                span(aria-hidden='true') ×
+                                            h4#myModalLabel.modal-title Upload Photo
+                                        .modal-body
+                                            .row.mg-t-b-25.display-flex
+                                                .col-sm-7
+                                                    .mg-l-f-25
+                                                        .drop-box(ng-class="picFile != undefined ? 'no-border':''" ng-model="picFile" ngf-pattern="image/*" ngf-drop)
+                                                            img-crop(image='picFile  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                                                        h5.mg-top-20 Select a file:
+                                                        button(ngf-select='' ng-model='picFile' accept='image/*' ngf-max-size='5MB' ngf-model-invalid='errorFile')
+                                                            | Choose Picture
+                                                        | {{picFile.name}}
+                                                        i(ng-show='createProfile.file.$error.maxSize')
+                                                            | File too large
+                                                            | {{errorFile.size / 1000000|number:1}}MB: max 5M
+                                                .col-sm-5.text-center
+                                                    .mg-l-f-25
+                                                        h4.no-margin.text-center Your Photo
+                                                        img.profile-pic.mg-top-20(ng-src='{{croppedDataUrl}}')
+
+                                        .modal-footer
+                                            button.btn.btn-primary(type='button', data-dismiss='modal' ng-click="saveImage()") Save
+                                            button.btn.btn-link(type='button' data-dismiss='modal') Cancel
+
+
+
+
+

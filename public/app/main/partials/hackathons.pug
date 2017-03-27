@@ -1,0 +1,29 @@
+.user-header
+    .container
+        .vertical-center
+            h1.clr-white Search Hackathons
+.container.mg-top-40
+    .row.mg-bottom-20.search
+        .col-sm-8.col-sm-offset-2
+            .row
+                .col-sm-10
+                    .form-group
+                        label.sr-only(for="search")
+                        input.form-control#search(type="text" name="search" placeholder="search by name" ng-model="searchText")
+                .col-sm-2
+                    button.btn.btn-primary(ng-click="search()") Search
+    .row.hackathon-list
+        .col-sm-3.hackathon-column.mg-bottom-20(ng-repeat="hackathon in hackathons")
+            .card.hackathon-card(ng-click="openHackathon(hackathon._id)")
+                img.hackathon-thumbnail(src="img/main-bg.jpg")
+                div.hackathon-details
+                    h4.bold {{hackathon.name}}
+                    p.clr-gray-light {{hackathon.slogan}}
+                    .location
+                        i.fa.fa-map-marker.mg-right-10
+                        | {{hackathon.location.city}}, {{hackathon.location.country}}
+                    .time
+                        i.fa.fa-clock-o.fa-lg
+                        | {{getDateDuration(hackathon.start_date, hackathon.end_date)}}
+    div.text-center
+        button.btn.btn-primary.mg-bottom-20(ng-click="getHackathons()" ng-show="newLength == 12") load more

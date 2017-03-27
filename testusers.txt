@@ -1,0 +1,25 @@
+[
+  '{{repeat(1)}}',
+  {
+     name: '{{firstName()}} {{surname()}}',
+    email: '{{email()}}',
+    profile: {
+      role: '{{random("Back End Developer", "Designer", "Front End Developer", "Full Stack Developer")}}',
+      employment: {
+        company: '{{random("1", "2", "3", "4", "5", "6", "7", "8", "9")}}'
+      },
+      education: {
+        school: '{{random("1", "2", "3", "4", "5", "6", "7", "8", "9")}}',
+        degree: '{{random("BSc.", "MSc.")}}',
+        country: '{{random("Andorra","United Arab Emirates","Afghanistan","Antigua and Barbuda","Anguilla","Albania","Armenia","Angola","Antarctica","Argentina","American Samoa","Austria","Australia","Aruba","Åland","Azerbaijan","Bosnia and Herzegovina","Barbados","Bangladesh","Belgium","Burkina Faso","Bulgaria","Bahrain","Burundi","Benin","Saint Barthélemy","Bermuda","Brunei","Bolivia","Bonaire","Brazil","Bahamas","Bhutan","Bouvet Island","Botswana","Belarus","Belize","Canada","Cocos [Keeling] Islands","Congo","Central African Republic","Republic of the Congo","Switzerland","Ivory Coast","Cook Islands","Chile","Cameroon","China","Colombia","Costa Rica","Cuba","Cape Verde","Curacao","Christmas Island","Cyprus","Czechia","Germany","Djibouti","Denmark","Dominica","Dominican Republic","Algeria","Ecuador","Estonia","Egypt","Western Sahara","Eritrea","Spain","Ethiopia","Finland","Fiji","Falkland Islands","Micronesia","Faroe Islands","France","Gabon","United Kingdom","Grenada","Georgia","French Guiana","Guernsey","Ghana","Gibraltar","Greenland","Gambia","Guinea","Guadeloupe","Equatorial Guinea","Greece","South Georgia and the South Sandwich Islands","Guatemala","Guam","Guinea-Bissau","Guyana","Hong Kong","Heard Island and McDonald Islands","Honduras","Croatia","Haiti","Hungary","Indonesia","Ireland","Israel","Isle of Man","India","British Indian Ocean Territory","Iraq","Iran","Iceland","Italy","Jersey","Jamaica","Jordan","Japan","Kenya","Kyrgyzstan","Cambodia","Kiribati","Comoros","Saint Kitts and Nevis","North Korea","South Korea","Kuwait","Cayman Islands","Kazakhstan","Laos","Lebanon","Saint Lucia","Liechtenstein","Sri Lanka","Liberia","Lesotho","Lithuania","Luxembourg","Latvia","Libya","Morocco","Monaco","Moldova","Montenegro","Saint Martin","Madagascar","Marshall Islands","Macedonia","Mali","Myanmar [Burma]","Mongolia","Macao","Northern Mariana Islands","Martinique","Mauritania","Montserrat","Malta","Mauritius","Maldives","Malawi","Mexico","Malaysia","Mozambique","Namibia","New Caledonia","Niger","Norfolk Island","Nigeria","Nicaragua","Netherlands","Norway","Nepal","Nauru","Niue","New Zealand","Oman","Panama","Peru","French Polynesia","Papua New Guinea","Philippines","Pakistan","Poland","Saint Pierre and Miquelon","Pitcairn Islands","Puerto Rico","Palestine","Portugal","Palau","Paraguay","Qatar","Réunion","Romania","Serbia","Russia","Rwanda","Saudi Arabia","Solomon Islands","Seychelles","Sudan","Sweden","Singapore","Saint Helena","Slovenia","Svalbard and Jan Mayen","Slovakia","Sierra Leone","San Marino","Senegal","Somalia","Suriname","South Sudan","São Tomé and Príncipe","El Salvador","Sint Maarten","Syria","Swaziland","Turks and Caicos Islands","Chad","French Southern Territories","Togo","Thailand","Tajikistan","Tokelau","East Timor","Turkmenistan","Tunisia","Tonga","Turkey","Trinidad and Tobago","Tuvalu","Taiwan","Tanzania","Ukraine","Uganda","U.S. Minor Outlying Islands","United States","Uruguay","Uzbekistan","Vatican City","Saint Vincent and the Grenadines","Venezuela","British Virgin Islands","U.S. Virgin Islands","Vietnam","Vanuatu","Wallis and Futuna","Samoa","Kosovo","Yemen","Mayotte","South Africa","Zambia","Zimbabwe")}}'
+      },
+      address: "UK",
+      projectTypes: ['{{repeat(1,2)}}','{{random("Desktop Software Development", "Ecommerce Development", "Game Development", "Mobile Development", "Web Development", "Web & Mobile Design", "Other")}}'],
+      skills: '{{random("AngularJS", "JavaScript", "NodeJS", "ReactJS", "PHP", "Python", "C#", "C++", "Java", "Android", "iOS")}}',
+      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique iaculis ex, quis interdum sapien scelerisque vitae. Suspendisse sed turpis augue. Vestibulum ante ipsum, imperdiet et libero a, facilisis molestie enim. Nunc ligula orci, placerat quis finibus non, pellentesque sed massa. Maecenas at nibh quam. Mauris ullamcorper neque quis luctus lacinia. Phasellus a sem vel purus bibendum gravida. Aenean justo augue, ornare sit amet urna non, euismod euismod magna. Suspendisse et neque ligula. Mauris dictum orci massa, eget posuere nisi gravida nec. Etiam lacinia, felis nec blandit viverra, enim arcu vehicula orci, id accumsan risus velit gravida dui. Pellentesque mattis libero at dolor facilisis, eu mattis nibh congue. Etiam pretium aliquet orci vitae vehicula."
+  } ,
+    salt: "test",
+    hashed_password: "test",
+    verify: true
+  }
+]  

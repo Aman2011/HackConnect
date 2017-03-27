@@ -1,0 +1,138 @@
+.panel.panel-default.inbox {
+  .panel-body {
+    display: flex;
+  }
+  .inbox-actions {
+    .action-header {
+      padding: 10px;
+      border-bottom: 1px solid @gray-lighter;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .inbox-threads {
+    border-right: 1px solid @gray-lighter;
+    padding: 0;
+    flex: 1;
+    .inbox-thread-list {
+      position: absolute;
+      bottom: 0;
+      top: 48.8px;
+      right: 0;
+      left: 0;
+      overflow: auto;
+      li {
+        padding: 10px;
+        border-bottom: 1px solid @gray-lighter;
+        display: flex;
+        align-items: center;
+        .message-description {
+          display: inline-block;
+          overflow: hidden;
+          width: 100%;
+        }
+        h4, p {
+          margin: 0;
+        }
+
+        h4 {
+          display: inline-block;
+          font-size: @font-size-h4 - 2px;
+        }
+
+        p {
+          margin-bottom: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          line-height: 1;
+        }
+
+        p.time {
+          color: lighten(@gray-light, 20%);
+        }
+
+        &:hover,&.active {
+          background-color: rgba(0, 0, 0, .05);
+        }
+      }
+
+      .unread {
+        .message, .heading {
+          font-weight: bold;
+          color: black;
+        }
+      }
+    }
+
+    .message, .heading {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .inbox-conversations {
+    flex: 3;
+    padding: 0;
+      .inbox-thread-messages {
+        overflow-y: auto;
+        margin-bottom: 0;
+        height: 80%;
+        max-height: 415px;
+        li {
+          padding-bottom: 10px;
+          padding-left: 10px;
+          padding-right: 10px;
+          &:first-child {
+            padding-top: 10px;
+          }
+        }
+        img.user-thumbnail {
+          width: 25px;
+          height: 25px;
+          vertical-align: bottom;
+          margin-bottom: 3px;
+        }
+        .message-bubble {
+          padding: 6px 12px;
+          max-width: 60%;
+          display: inline-block;
+          border-radius: 10px;
+          text-align: left;
+          p {
+            display: inline-block;
+          }
+        }
+
+        .text-left .message-bubble {
+          background-color: #f1f0f0;
+        }
+
+        .text-right .message-bubble {
+          background-color: @brand-primary;
+          color: white;
+        }
+      }
+    .inbox-new-message {
+      padding: 10px;
+      overflow: hidden;
+      .form-group {
+        display: inline-block;
+        width: 88%;
+        margin-right: 10px;
+        margin-bottom: 0;
+      }
+      .btn {
+        width: 10%;
+      }
+    }
+  }
+  img.user-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+}

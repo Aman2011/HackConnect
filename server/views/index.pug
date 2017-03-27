@@ -1,6 +1,6 @@
 extends ../includes/layout
-
 block main-content
-    section.content
-        div(ng-view)
-    h2= mongoMessage
+    section(ng-class="isInbox()?'display-flex flex':''")
+        div(ng-view ng-class="isInbox()?'display-flex flex':''")
+
+

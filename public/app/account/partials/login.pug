@@ -1,0 +1,45 @@
+form(action="/login" method="post" ng-controller="LoginCtrl")
+    .form-group
+        label.sr-only(for="login-email")
+        input.form-control#login-email(type="email" name="email" placeholder="Email Address" required)
+    .form-group
+        label.sr-only(for = "login-password")
+        input.form-control#login-password(type="password" name="password" placeholder="Password" required)
+    button.btn.btn-login(type="submit") Login
+
+    p.clr-white.no-margin #{loginMessage}
+    p.clr-white.pd-top-20 Or login with:
+    a(href="/auth/linkedin")
+        i.fa.fa-linkedin-square.fa-2_5x.clr-white.mg-right-10
+    hr.mg-t-b-25
+    div.clr-white.text-center Forgot your password?
+        a(data-toggle="modal" data-target="#forgotPassword" ng-click="emailSent = false")   Click here
+
+    #forgotPassword.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+        .modal-dialog(role='document')
+            .modal-content(ng-if="!emailSent")
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span.fa.fa-times-circle-o(aria-hidden='true')
+                    h4.modal-title Forgot your Password?
+                .modal-body
+                    h4.no-mg-top.mg-bottom-20 Enter your email and we will send a link to reset your password.
+                    .form-group
+                        label(for="forgotPasswordEmail") Email
+                        input.form-control.normal#forgotPasswordEmail(name="modalEmail" ng-model="modalEmail")
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-primary(type='button' ng-click="sendEmail(modalEmail)" ng-disabled="!modalEmail") Send
+            .modal-content(ng-if="emailSent")
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span.fa.fa-times-circle-o(aria-hidden='true')
+                    h4.modal-title Email Sent
+                .modal-body.text-center
+                    i.block.fa.fa-check-circle-o.fa-3x.mg-bottom-20.clr-primary
+                    h3 We emailed you a link and instructions for updating your password.
+                .modal-footer
+                    button.btn.btn-primary(type='button', data-dismiss='modal') Close
+
+
+

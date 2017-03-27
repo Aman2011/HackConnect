@@ -1,0 +1,31 @@
+.container.mg-t-b-25
+    .panel.panel-default.panel-shadow.no-border-radius.inbox.full-height
+        .panel-body.no-padding.full-height
+            .col-sm-3.inbox-threads
+                .inbox-actions
+                    .action-header
+                        span.fa.fa-cog.fa-2x.clr-primary(aria-hidden=true)
+                        h4.bold.no-margin Messenger
+                        span.fa.fa-pencil-square-o.fa-2x.clr-primary(aria-hidden=true)
+                ul.inbox-thread-list.list-unstyled.no-margin
+                    li(ng-repeat="conversation in conversations" ng-click="getConversation(conversation)" ng-class="{'active':conversation == selectedConversation, 'unread': !conversation.message.read && conversation.message.author === conversation.participant._id}")
+                        img.user-thumbnail(src="{{conversation.participant.profile.picture}}")
+                        .message-description
+                            h4.no-margin.heading {{conversation.participant.name}}
+                            p.time.pull-right Time
+                            p.clr-gray-light.message {{conversation.message.content}}
+
+            .col-sm-9.inbox-conversations
+                .inbox-actions
+                    .action-header
+                        h4.bold.no-margin {{selectedConversation.message.author.name}}
+                        span.fa.fa-ellipsis-h.fa-2x(aria-hidden=true)
+                ul.inbox-thread-messages.list-unstyled
+                    li(ng-repeat="message in messages" ng-class="alignText(message.author._id)")
+                        img.user-thumbnail(src="{{message.author.profile.picture}}" ng-if="message.author._id != currentUser._id")
+                        span.message-bubble
+                            p.no-margin {{message.content}}
+                .inbox-new-message
+                    .form-group
+                        input.form-control(placeholder="Enter new message" ng-model="newMessage")
+                    button.btn.btn-primary(ng-click="sendMessage()") Send

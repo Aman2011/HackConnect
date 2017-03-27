@@ -1,0 +1,108 @@
+.navbar.navbar-default.navbar-static-top(ng-controller="NavbarCtrl")
+    .container.ng-cloak
+        .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.navbar-brand.no-padding(href="/")
+                img(src='/img/logo.png')
+        .navbar-collapse.collapse
+            ul.nav.navbar-nav(ng-if="checkCreateProfile()")
+                li(ng-class="checkRoute('profile, home')")
+                    a(href='/profile') Profile
+                li(ng-class="checkRoute('people')")
+                    a(href='/people') People
+                li(ng-class="checkRoute('hackathons')")
+                    a(href='/hackathons') Hackathons
+            ul.nav.navbar-nav.navbar-right(ng-if="checkCreateProfile()")
+                li.dropdown
+                    a.dropdown-toggle(type='button', data-toggle='dropdown' ng-click="markAsRead('requests')")
+                        span.nav-item
+                            span.nav-item-counter(ng-if="requestsCounter > 0")
+                                | {{requestsCounter}}
+                            i.fa.fa-user-o.fa-1_4x
+                    ul.dropdown-menu.requests
+                        h5 Requests
+                        li.request(ng-repeat="request in requests" ng-class="request.read ? '':'unread'")
+                            .request-left
+                                img.profile-thumbnail(src="{{request.sender.profile.picture}}")
+                                .request-description
+                                    a(ng-click="openUserProfile(request.sender._id)")
+                                         strong {{request.sender.name}}
+                                    p 6 shared connections
+                            .request-right
+                                button.btn.btn-default.mg-right-10(ng-click="rejectRequest(request)") Reject
+                                button.btn.btn-primary(ng-click="acceptRequest(request)") Accept
+                        div.text-center
+                            a.btn.btn-link.clr-primary(href="/inbox") View all requests
+
+                li.dropdown
+                    a.dropdown-toggle(type='button', data-toggle='dropdown' ng-click="markAsOld('conversations')")
+                        span.nav-item
+                            span.nav-item-counter(ng-if="conversationsCounter > 0")
+                                | {{conversationsCounter}}
+                            i.fa.fa-comments-o.fa-1_4x
+                    ul.dropdown-menu.messages
+                        h5 Messages
+                        li.message(ng-repeat="conversation in conversations" ng-class="conversation.message.read ? '':'unread'" ng-click="selectConversation(conversation)")
+                            a(href='#')
+                                img.profile-thumbnail(src="{{conversation.message.author.profile.picture}}")
+                                .message-description
+                                    .heading
+                                        strong {{conversation.message.author.name}}{{(conversation.count > 1? ' ('+conversation.count+')':'')}}
+                                        p.time.pull-right Mar 9
+                                    p {{conversation.message.content}}
+                        div.text-center
+                            a.btn.btn-link.clr-primary(href="/inbox") View all in messenger
+                li.dropdown
+                    a.dropdown-toggle(type='button', data-toggle='dropdown' ng-click="markAsRead('notifications')")
+                        span.nav-item
+                            span.nav-item-counter(ng-if="notificationsCounter > 0")
+                                | {{notificationsCounter}}
+                            i.fa.fa-bell-o.fa-1_4x
+                    ul.dropdown-menu.notifications
+                        h5 Notifications
+                        li(ng-repeat="notification in notifications track by $index")
+                            a(ng-click="userService.openUserProfile(notification.sender._id)")
+                                img.profile-thumbnail(src="{{notification.sender.profile.picture}}")
+                                strong {{notification.sender.name}}
+                                |  accepted your connection request
+                        li.clr-gray-light.pd-all-10(ng-if="notifications.length == 0")
+                            p.no-margin No new notifications
+                        div.text-center(ng-if="notifications.length > 0")
+                            a.btn.btn-link.clr-primary(href="#") View previous Notifications
+
+                li.dropdown.logout
+                    a.dropdown-toggle(type='button', data-toggle='dropdown')
+                        | {{userName}}
+                        i.fa.fa-angle-down.fa-lg.mg-left-10
+                    ul.no-padding.dropdown-menu.settings
+                        li.account-settings
+                            h5.no-margin
+                                span.fa.fa-cog.mg-right-10
+                                | Account
+                            ul.list-unstyled
+                                li
+                                    a(href="") Change Email
+                                li
+                                    a(href="") Change Password
+
+                        li.manage
+                            h5.no-margin
+                                span.fa.fa-cog.mg-right-10
+                                | Manage
+                            ul.list-unstyled
+                                li
+                                    a(ng-click="logout()") Logout
+            ul.nav.navbar-nav.navbar-right(ng-if="!checkCreateProfile()")
+                li.dropdown.logout
+                    a.dropdown-toggle(type='button', data-toggle='dropdown')
+                        | {{userName}}
+                        i.fa.fa-angle-down.fa-lg.mg-left-10
+                    ul.no-padding.dropdown-menu.settings
+                        li.manage
+                            a.pd-all-10(ng-click="logout()") Logout
+
+

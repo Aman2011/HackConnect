@@ -1,0 +1,20 @@
+.message-icon, .social-icon {
+  border-radius: 50%;
+  border: 1.5px solid @gray-light;
+  padding: 9px 10px;
+  color: @gray;
+  &:hover, &:active {
+    color: darken(@brand-primary, 15%);
+    border-color: darken(@brand-primary, 15%);
+    cursor: pointer;
+  }
+}
+
+.social-icon {
+  &.facebook {
+    padding: 10px 13px;
+  }
+  &.linkedin, &.github {
+    padding: 10px 10.3px;
+  }
+}

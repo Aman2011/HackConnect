@@ -1,0 +1,175 @@
+.bg-img
+    .user-header.no-margin
+        .container
+            .vertical-center
+                .pull-left
+                    h2.clr-white.no-mg-top
+                        strong {{userData.name}}
+                    h4.clr-white.text-center {{userData.role}}
+                .pull-right
+                    button.btn.btn-outline.mg-right-10(ng-click="sendConnectionRequest()" ng-if="connectionStatus == 'connect'") Connect
+                    button.btn.btn-outline.mg-right-10(data-toggle="modal" data-target="#disconnectModal" ng-if="connectionStatus == 'connected'") Connected
+                    button.btn.btn-outline.mg-right-10(data-toggle="modal" data-target="#cancelRequestModal" ng-if="connectionStatus == 'requested' ") Sent
+                    button.btn.btn-outline.mg-right-10(ng-if="connectionStatus == 'accept'") Accept
+                    button.btn.btn-outline(data-toggle="modal" data-target="#messageModal" ng-click="messageUser=userData") Message
+.container
+    ul.nav.nav-tabs.header-tabs
+        li.active
+            a(data-toggle='tab', data-target='#profile') Profile
+        li
+            a(data-toggle='tab', data-target='#hackathons' ng-click="getUserHackathons()") Hackathons
+        li
+            a(data-toggle='tab', data-target='#connections' ng-click="getUserConnections()") Connections
+.container.mg-top-40
+    .tab-content
+        #profile.tab-pane.fade.in.active
+            #about.panel.panel-default.panel-shadow.mg-bottom-30
+                .panel-heading
+                    .panel-title
+                        h3 About
+                .panel-body
+                    .text-center.mg-bottom-20
+                        img.profile-pic(src="{{userData.picture}}")
+                    p {{userData.bio}}
+            .row
+                .col-sm-8
+                    #skills.panel.panel-default.panel-shadow.mg-bottom-30(ng-if="skills.length > 0")
+                        .panel-heading
+                            .panel-title
+                                h3 Skills
+                        .panel-body
+                            label.label.label-default(ng-repeat="skill in userData.skills") {{skill}}
+                    #similar-users.panel.panel-default.panel-similar.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Similar users
+                        .panel-body
+                            .row(ng-repeat="user in similarUsers | limitTo: 3")
+                                .col-sm-10.similar-left
+                                    img.similar-thumbnail(src="{{user.profile.picture}}")
+                                    .similar-description
+                                        a
+                                            h4.similar-heading {{user.name}}
+                                        p.similar-location {{user.profile.role}} - {{user.profile.address.city}}, {{user.profile.address.country}}
+                                        label.label.label-default(ng-repeat="skill in user.profile.skills") {{skill}}
+                                .col-sm-2.similar-right
+                                    a.message-icon(ng-click="openMessageModal(user)")
+                                        i.fa.fa-envelope-o.fa-lg
+                            hr.no-margin.clr-gray-lighter
+
+                .col-sm-4
+                    #professional-details.panel.panel-default.panel-shadow.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Professional Details
+                        .panel-body
+                            ul.list-unstyled
+                                li.row(ng-class="isEmptyObject(userData.address)?'hidden':''")
+                                    h5.title.col-xs-6 Location
+                                    h5.value.col-xs-6 {{userData.address.city}}, {{userData.address.country}}
+                                li.row(ng-class="isEmpty(userData.education.school)?'hidden':''")
+                                    h5.title.col-xs-6 Education
+                                    h5.value.col-xs-6 {{userData.education.school}}
+                                li.row(ng-class="isEmpty(userData.education.degree)?'hidden':''")
+                                    h5.title.col-xs-6 Degree
+                                    h5.value.col-xs-6 {{userData.education.degree}}
+                                li.row(ng-class="isEmpty(userData.employment.company)?'hidden':''")
+                                    h5.title.col-xs-6 Company
+                                    h5.value.col-xs-6 {{userData.employment.company}}
+                                li.row(ng-class="isEmpty(userData.employment.job_title)?'hidden':''")
+                                    h5.title.col-xs-6 Job Title
+                                    h5.value.col-xs-6 {{userData.employment.job_title}}
+                                li.row(ng-class="isEmpty(userData.experience)?'hidden':''")
+                                    h5.title.col-xs-6 Experience
+                                    h5.value.col-xs-6 {{userData.experience}}
+                                li.row(ng-class="isEmpty(userData.personalWebsite)?'hidden':''")
+                                    h5.title.col-xs-6 Website
+                                    a.value.col-xs-6(ng-href="{{userData.personalWebsite}}") Click here
+
+
+                    #social-profiles.panel.panel-default.mg-bottom-30(ng-if="!isEmptyObject(userData.socialProfiles)")
+                        .panel-heading
+                            .panel-title
+                                h3 Social Profiles
+                                i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editSocialProfiles')")
+                        .panel-body
+                            a.social-icon.facebook.mg-right-10(href="{{userData.socialProfiles.facebook}}" ng-hide="isEmpty(userData.socialProfiles.facebook)")
+                                i.fa.fa-facebook.fa-lg
+                            a.social-icon.linkedin.mg-right-10(href="{{userData.socialProfiles.linkedIn}}" ng-hide="isEmpty(userData.socialProfiles.linkedIn)")
+                                i.fa.fa-linkedin.fa-lg
+                            a.social-icon.github(href="{{userData.socialProfiles.github}}" ng-hide="isEmpty(userData.socialProfiles.github)")
+                                i.fa.fa-github.fa-lg
+        #hackathons.tab-pane.fade
+            .panel.panel-default.panel-hackathon(ng-repeat="hackathon in hackathons" ng-click="goToHackathon(hackathon._id)")
+                .panel-body
+                    .row
+                        .col-sm-8.hackathon-left
+                            img.hackathon-thumbnail(src="img/main-bg.jpg")
+                            .hackathon-description
+                                h2.hackathon-heading {{hackathon.name}}
+                                div.location
+                                    i.fa.fa-map-marker
+                                    p.location-text {{hackathon.location.city}}, {{hackathon.location.country}}
+                                p.no-margin {{hackathon.slogan}}
+                        .col-sm-4.hackathon-right.text-center
+
+                            div.duration
+                                i.fa.fa-clock-o.fa-3x
+                                h3.duration-text Mar 17 - 19, 2017
+        #connections.tab-pane.fade
+            .panel.panel-default.panel-connection
+                .panel-body
+                    .row(ng-repeat="connection in connections track by $index")
+                        .col-sm-10.connection-left
+                            img.connection-thumbnail(src="{{connection.profile.picture}}")
+                            .row.connection-description
+                                .col-sm-5
+                                    a
+                                        h3.connection-name {{connection.name}}
+                                    p.connection-role {{connection.profile.role}}
+                                .col-sm-7
+                                    h4.connection-location {{connection.profile.address.city}}, {{connection.profile.address.country}}
+                        .col-sm-2.connection-right
+                            button.btn.btn-primary(ng-click="openMessageModal(connection)")
+                                | Message
+
+#messageModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title New Message
+            .modal-body
+                .form-group
+                    label(for="message") Message
+                    textarea.form-control#message(name="message" ng-model="content")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                button.btn.btn-primary(type='button' ng-click="sendMessage2(content)") Send Message
+
+#disconnectModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Remove Connection?
+            .modal-body
+                p Are you sure you want to remove this connection?
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="disconnect()") Remove
+
+#cancelRequestModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Cancel Request?
+            .modal-body
+                p Are you sure you want to cancel this request?
+            .modal-footer
+                button.btn.btn-primary(type='button' ng-click="cancelRequest()") Cancel Request
+

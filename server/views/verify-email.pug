@@ -1,0 +1,16 @@
+extends ../includes/layout
+
+block main-content
+    .navbar.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="/") HackConnect
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href='/') Home
+                    li
+                        a.btn.btn-primary(ng-href="/logout") Logout
+    section.content
+        a.btn.btn-primary(href='/resendVerificationLink') Send verification link again
+

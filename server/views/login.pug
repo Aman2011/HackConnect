@@ -1,0 +1,25 @@
+extends ../includes/loginlayout
+
+block main-content
+    .content.login-bg
+        .container.pd-top-40
+            .row
+                .col-sm-6.col-sm-offset-3
+                    .panel.panel-login
+                        - var registerTab = "active"
+                        - var loginTab = ""
+                        - if (loginMessage != "")
+                            - loginTab = "active"
+                            - registerTab = ""
+                        ul.nav.nav-tabs(role="tablist")
+                            li.nav-item(class=registerTab)
+                                a.nav-link(data-toggle="tab" href="#register" role="tab") Register
+                            li.nav-item(class=loginTab)
+                                a.nav-link(data-toggle="tab" href="#login" role="tab") Member Login
+                        .tab-content.panel-body
+                            .tab-pane.fade.in#register(class=registerTab === 'active'? "in active":"" role="tabpanel")
+                                div(ng-include="'/partials//account/partials/register'")
+                            .tab-pane.fade#login(class=loginTab === 'active' ? "in active" : "" role = "tabpanel")
+                                div(ng-include="'/partials//account/partials/login'")
+
+

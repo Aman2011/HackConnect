@@ -1,0 +1,17 @@
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
+.login-bg {
+  background: url(https://mlh.io/assets/home/lead-bg-21f1a674f54f6f41ca28b17c35923d83.jpg);
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}

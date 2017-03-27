@@ -1,0 +1,5 @@
+.panel.panel-default.inbox .inbox-threads .inbox-actions .action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,267 @@
+block scripts
+    script(type="text/javascript", src="/vendor/typeahead.js/dist/typeahead.jquery.js")
+    script(type="text/javascript", src="/vendor/typeahead.js/dist/bloodhound.js")
+
+.bg-img
+    .user-header.no-margin
+        .container
+            .vertical-center
+                .pull-left
+                    h2.clr-white.no-mg-top
+                        strong {{userData.name}}
+                    h4.clr-white.text-center {{userData.role}}
+                .pull-right
+                    button.btn.btn-outline(data-toggle="modal" data-target="#editProfileModal") Edit Profile
+.container
+    ul.nav.nav-tabs.header-tabs
+        li.active
+            a(data-toggle='tab', data-target='#profile') Profile
+        li
+            a(data-toggle='tab', data-target='#hackathons' ng-click="getUserHackathons()") Hackathons
+        li
+            a(data-toggle='tab', data-target='#connections' ng-click="getUserConnections()") Connections
+.container.mg-top-40
+    .tab-content
+        #profile.tab-pane.fade.in.active
+            #about.panel.panel-default.mg-bottom-30
+                .panel-heading
+                    .panel-title
+                        h3 About
+                        i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editBio')")
+                .panel-body
+                    .text-center.mg-bottom-20
+                        img.profile-pic(src="{{userData.picture}}")
+                    p {{userData.bio}}
+            .row
+                .col-sm-8
+                    #skills.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Skills
+                                i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editSkills')")
+                        .panel-body
+                            label.label.label-default(ng-repeat="skill in userData.skills") {{skill}}
+                    #similar-users.panel.panel-default.panel-similar.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Similar users
+                        .panel-body
+                            .row(ng-repeat="user in similarUsers | limitTo: 3")
+                               .col-sm-10.similar-left
+                                   img.similar-thumbnail(src="{{user.profile.picture}}")
+                                   .similar-description
+                                        a
+                                            h4.similar-heading {{user.name}}
+                                        p.similar-location {{user.profile.role}} - {{user.profile.address.city}}, {{user.profile.address.country}}
+                                        label.label.label-default(ng-repeat="skill in user.profile.skills") {{skill}}
+                               .col-sm-2.similar-right
+                                   a.message-icon(ng-click="openMessageModal(user)")
+                                        i.fa.fa-envelope-o.fa-lg
+                            hr.no-margin.clr-gray-lighter
+                .col-sm-4
+                    #professional-details.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Professional Details
+                                i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editProfessionalDetails')")
+                        .panel-body
+                            ul.list-unstyled
+                                li.row(ng-class="isEmptyObject(userData.address)?'hidden':''")
+                                    h5.title.col-xs-6 Location
+                                    h5.value.col-xs-6 {{userData.address.city}}, {{userData.address.country}}
+                                li.row(ng-class="isEmpty(userData.education.school)?'hidden':''")
+                                    h5.title.col-xs-6 Education
+                                    h5.value.col-xs-6 {{userData.education.school}}
+                                li.row(ng-class="isEmpty(userData.education.degree)?'hidden':''")
+                                    h5.title.col-xs-6 Degree
+                                    h5.value.col-xs-6 {{userData.education.degree}}
+                                li.row(ng-class="isEmpty(userData.employment.company)?'hidden':''")
+                                    h5.title.col-xs-6 Company
+                                    h5.value.col-xs-6 {{userData.employment.company}}
+                                li.row(ng-class="isEmpty(userData.employment.job_title)?'hidden':''")
+                                    h5.title.col-xs-6 Job Title
+                                    h5.value.col-xs-6 {{userData.employment.job_title}}
+                                li.row(ng-class="isEmpty(userData.experience)?'hidden':''")
+                                    h5.title.col-xs-6 Experience
+                                    h5.value.col-xs-6 {{userData.experience}}
+                                li.row(ng-class="isEmpty(userData.personalWebsite)?'hidden':''")
+                                    h5.title.col-xs-6 Website
+                                    a.value.col-xs-6(ng-href="{{userData.personalWebsite}}") Click here
+
+                    #social-profiles.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Social Profiles
+                                i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editSocialProfiles')")
+                        .panel-body
+                            a.social-icon.facebook.mg-right-10(href="{{userData.socialProfiles.facebook}}" ng-hide="isEmpty(userData.socialProfiles.facebook)")
+                                i.fa.fa-facebook.fa-lg
+                            a.social-icon.linkedin.mg-right-10(href="{{userData.socialProfiles.linkedIn}}" ng-hide="isEmpty(userData.socialProfiles.linkedIn)")
+                                i.fa.fa-linkedin.fa-lg
+                            a.social-icon.github(href="{{userData.socialProfiles.github}}" ng-hide="isEmpty(userData.socialProfiles.github)")
+                                i.fa.fa-github.fa-lg
+                            span.add-profile(ng-if="isEmptyObject(userData.socialProfiles)" ng-click="edit('#editSocialProfiles')")
+                                i.fa.fa-plus.fa-lg
+                                | Add Social Profiles
+
+        #hackathons.tab-pane.fade
+            .panel.panel-default.panel-hackathon(ng-repeat="hackathon in hackathons" ng-click="goToHackathon(hackathon._id)")
+                .panel-body
+                    .row
+                        .col-sm-8.hackathon-left
+                            img.hackathon-thumbnail(src="img/main-bg.jpg")
+                            .hackathon-description
+                                h2.hackathon-heading {{hackathon.name}}
+                                div.location
+                                    i.fa.fa-map-marker
+                                    p.location-text {{hackathon.location.city}}, {{hackathon.location.country}}
+                                p.no-margin {{hackathon.slogan}}
+                        .col-sm-4.hackathon-right.text-center
+
+                            div.duration
+                                i.fa.fa-clock-o.fa-3x
+                                h3.duration-text {{hackathon.duration}}
+        #connections.tab-pane.fade
+            .panel.panel-default.panel-connection
+                .panel-body
+                    .row(ng-repeat="connection in connections track by $index")
+                        .col-sm-10.connection-left
+                            img.connection-thumbnail(src="{{connection.profile.picture}}")
+                            .row.connection-description
+                                .col-sm-5
+                                    a
+                                        h3.connection-name {{connection.name}}
+                                    p.connection-role {{connection.profile.role}}
+                                .col-sm-7
+                                    h4.connection-location {{connection.profile.address.city}}, {{connection.profile.address.country}}
+                        .col-sm-2.connection-right
+                            button.btn.btn-primary(ng-click="openMessageModal(connection)")
+                                | Message
+
+#messageModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Modal title
+            .modal-body
+                .form-group
+                    label(for="message") Message
+                    textarea.form-control#message(name="message" ng-model="content")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                button.btn.btn-primary(type='button' ng-click="sendMessage(content)") Send Message
+
+#editBio.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Modal title
+            .modal-body(ng-init='bio = userData.bio')
+                .form-group
+                    label(for="bio") Please describe yourself in a few lines
+                    textarea.form-control#bio(name="bio" ng-model="bio")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="saveEdit('bio','#editBio', bio)") Save
+
+#editSkills.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Skills
+            .modal-body
+                .form-group
+                    label(for="skills") Please select all the skills you are proficient in.
+                    select.sr-only(name="skills" multiple)
+                        option(ng-repeat="skill in skills track by $index" value="{{skill}}" selected)
+
+                    .tags-input-container
+                        .tags-container
+                            label.label.label-default(ng-repeat="skill in skills track by $index")
+                                | {{skill}}
+                                span.fa.fa-times(ng-click="removeSkill(skill)")
+
+                        input.form-control.tags-typeahead(type="text" data-file-name="skills" placeholder="Type here")
+
+
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="saveEdit('skills','#editSkills', skills)") Save
+
+#editProfessionalDetails.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Professional Details
+            .modal-body
+                div.address-section
+                    .form-group
+                        label(for="country") Country
+                        .prefetch
+                            input#country.form-control.typeahead(type="text" name="country" data-file-name="countries" ng-model="profile.address.country")
+                    .form-group
+                        label(for="city") City
+                        input.form-control#city(type='text' name="city" ng-model="profile.address.city")
+                div.education-section
+                    .form-group
+                        label(for="school") School
+                        .prefetch
+                            input.hidden#school-country(name="school_country" ng-model="profile.education.country")
+                            input#school.form-control.school-typeahead(type="text" name="school" data-file-name="schools" ng-model="profile.education.school")
+                    .form-group
+                        label(for="degree") Degree
+                        .prefetch
+                            input#degree.form-control.typeahead(name="degree" type="text" data-file-name="degree" ng-model="profile.education.degree")
+                div.employment-section
+                    .form-group
+                        label(for="company") Company
+                        .prefetch
+                            input#company.form-control.typeahead(name="company" type="text" data-file-name="companies" ng-model="profile.employment.company")
+                    .form-group
+                        label(for="job_title") Job Title
+                        input.form-control#job_title(type='text' name="job_title" ng-model="profile.employment.job_title")
+                div.personal-details
+                    .form-group
+                        label(for="experience") Programming Experience (in years)
+                        input.form-control#experience(type='number' name="experience" ng-model="profile.experience")
+                    .form-group
+                        label(for="personalWebsite") Personal Website Link
+                        input.form-control#personalWebsite(type='text' name="personalWebsite" ng-model="profile.personalWebsite")
+
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="saveEdit('profile','#editProfessionalDetails', profile)") Save
+
+#editSocialProfiles.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Social Profiles
+            .modal-body
+                p You can enter your Facebook, LinkedIn and GitHub profile links for other users to see
+                .form-group
+                    label(for="facebook") Facebook
+                    input.form-control#facebook(type='text' name="facebook" ng-model="socialProfiles.facebook")
+                .form-group
+                    label(for="linkedIn") LinkedIn
+                    input.form-control#linkedIn(type='text' name="linkedIn" ng-model="socialProfiles.linkedIn")
+                .form-group
+                    label(for="github") GitHub
+                    input.form-control#github(type='text' name="github" ng-model="socialProfiles.github")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="saveEdit('socialProfiles', '#editSocialProfiles', socialProfiles)") Save
+
+
+
+

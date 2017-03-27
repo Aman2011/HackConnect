@@ -1,0 +1,107 @@
+.user-header, .hackathon-header {
+  min-height: 200px;
+  background-color: @brand-primary;
+  display: flex;
+  align-items: center;
+
+  div.vertical-center {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.hackathon-header {
+  min-height: 400px;
+  position: relative;
+  .hackathon-img {
+    background: url(https://mlh.io/assets/home/lead-bg-21f1a674f54f6f41ca28b17c35923d83.jpg);
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .container {
+    margin-top: -30px;
+    z-index: 100;
+    .hackathon-info {
+      background-color: fadeout(#000, 30%);
+      padding: 30px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .date,.location {
+        i {
+          margin-right: 5px;
+        }
+      }
+      .share-icons {
+        min-height: 34px;
+        margin: 20px 0;
+        text-align: center;
+        .share-icon {
+          border-radius: 50%;
+          border: 1.5px solid white;
+          padding: 9px 10px;
+          color: white;
+          cursor: pointer;
+          &.facebook {
+            padding: 10px 13px;
+          }
+          &.linkedin {
+            padding: 10px 10.3px;
+          }
+        }
+      }
+      .footer {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid fadeout(#fff, 50%);
+      }
+
+    }
+  }
+}
+
+/*div.bg-img {
+  background: url(https://mlh.io/assets/home/lead-bg-21f1a674f54f6f41ca28b17c35923d83.jpg);
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}*/
+
+.profile-pic, .hackathon-thumbnail {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-pic {
+  border-radius: 100%;
+}
+
+.hackathon-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .hackathon-column {
+    display: flex;
+  }
+}
+
+.search {
+  .col-sm-2 {
+    padding-left: 0;
+  }
+  .btn {
+    height: @input-height-base;
+    font-size: 16px;
+  }
+}
+
+// for angular bootstrap library
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+

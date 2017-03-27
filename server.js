@@ -1,49 +1,32 @@
 var express = require('express'),
-    less = require('less-middleware'),
-    logger = require('morgan'),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
+    passport = require('passport');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'pug');
-app.use(logger('dev'));
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(less(__dirname + '/public', {compress: true}));
-app.use(express.static(__dirname + '/public'));
+var server = require('http').Server(app);
 
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/hackconnect');
-} else {
-    mongoose.connect('mongodb://admin:Hack2011@ds163667.mlab.com:63667/hackconnect');
-}
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'))
-db.once('open', function callback() {
-    console.log('hackconnect db opened');
-})
+var io =  require('socket.io').listen(server);
 
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function (err, messageDoc) {
-    mongoMessage = messageDoc.message;
-})
+var config = require('./server/config/config')[env];
 
-app.get('/partials/:partialPath', function (req, res) {
-    res.render('partials/' + req.params.partialPath);
-})
+require('./server/config/mongoose')(config);
 
-app.get('*', function(req, res) {
-    res.render('index', {
-        mongoMessage: mongoMessage
-    });
-})
+require('./server/models/verificationToken');
 
-var port = process.env.PORT || 7700;
-app.listen(port);
-console.log('Listening on port ' + port + '...');
+require('./server/config/express')(app, config);
+
+require('./server/config/passport')(passport, config);
+
+var path = require("path")
+/*app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname+'/server/views/html/forgot-password.html'));
+})*/
+
+require('./server/config/routes')(app, passport);
+
+require('./server/config/socket')(io)
+
+server.listen(config.port);
+console.log('Listening on port ' + config.port + '...');

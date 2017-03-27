@@ -1,0 +1,37 @@
+{
+  "Back End Developer": [
+    {"name": "Front End Developer", "score": 40},
+    {"name": "Full Stack Developer", "score": 30},
+    {"name": "UI Developer", "score": 30}
+  ],
+  "Front End Developer": [
+    {"name": "Back End Developer", "score": 40},
+    {"name": "Full Stack Developer", "score": 30},
+    {"name": "Designer", "score": 30}
+  ],
+  "Full Stack Developer": [
+    {"name": "Back End Developer", "score": 25},
+    {"name": "Full Stack Developer", "score": 40},
+    {"name": "Designer", "score": 30},
+    {"name": "Front End Developer", "score": 25}
+  ],
+  "Web Developer": [
+    {"name": "Web Developer", "score": 40},
+    {"name": "Full Stack Developer", "score": 35},
+    {"name": "Designer", "score": 30},
+    {"name": "UI Developer", "score": 30},
+    {"name": "Back End Developer", "score": 15},
+    {"name": "Front End Developer", "score": 15}
+  ],
+  "UI Developer": [
+    {"name": "Front End Developer", "score": 40},
+    {"name": "Back End Developer", "score": 35},
+    {"name": "Designer", "score": 30},
+    {"name": "Web Developer", "score": 30}
+  ],
+  "Designer": [
+    {"name": "Front End Developer", "score": 40},
+    {"name": "Web Developer", "score": 30},
+    {"name": "Full Stack Developer", "score": 30}
+  ]
+}

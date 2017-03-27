@@ -1,0 +1,70 @@
+.twitter-typeahead {
+  width: 100%;
+
+  .tt-suggestion.tt-cursor, .tt-suggestion:hover {
+    background-color: @brand-primary;
+    color: white;
+    * {
+      color: white;
+    }
+  }
+}
+
+.tags-input-container {
+  border: 2px solid @gray-lighter;
+  background-color: white;
+  border-radius: 2px;
+  cursor: text;
+  padding: 10px;
+  &:hover, &:focus {
+    border-color: @brand-primary;
+  }
+  .twitter-typeahead {
+    width: auto;
+  }
+  input {
+    border-color: transparent !important;
+    display: inline-block;
+    width: auto;
+  }
+
+  .tags-container {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    line-height: @input-height-base - 4;
+    .label {
+      margin-right: 5px;
+      display: inline-block;
+      &:hover {
+        .fa.fa-times {
+          opacity: 0.8;
+          color: @gray-lighter;
+        }
+      }
+      .fa.fa-times {
+        opacity: 0.3;
+        margin-left: 10px;
+
+        &:hover {
+          color: white;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+[uib-typeahead-popup].dropdown-menu {
+  width: 50%;
+  margin: 0;
+  padding: 0;
+
+  .active {
+    a, a:hover, a:focus {
+      > div {
+        color: white;
+      }
+    }
+  }
+}

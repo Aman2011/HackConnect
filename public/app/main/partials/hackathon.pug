@@ -1,0 +1,137 @@
+.hackathon-header
+    .hackathon-img
+    .container
+            .pull-left
+                .hackathon-info
+                    h2.clr-white.no-mg-top.mg-bottom-5
+                        strong {{hackathonData.name}}
+                    h4.clr-white.text-center.date
+                       i.clr-white.fa.fa-clock-o.fa-lg
+                       strong {{dateDuration}}
+                    h4.clr-white.text-center.location
+                        i.clr-white.fa.fa-map-marker.fa-lg
+                        strong {{hackathonData.location.city}}, {{hackathonData.location.country}}
+                    .share-icons
+                        a.share-icon.facebook.mg-right-10(href="")
+                            i.fa.fa-facebook.fa-lg
+                        a.share-icon.linkedin.mg-right-10(href="")
+                            i.fa.fa-linkedin.fa-lg
+                        a.share-icon.twitter(href="")
+                            i.fa.fa-twitter.fa-lg
+                    .footer
+                        p.clr-white.bold {{hackathonData.participants.length}} Participants on Hack Connect
+            .pull-right
+                button.btn.btn-outline.mg-right-10(ng-click="attend()" ng-hide="isAttending()") Attend
+                button.btn.btn-outline.mg-right-10(ng-show="isAttending()") Attending
+                a.btn.btn-outline.mg-right-10(ng-href="{{hackathonData.url}}") Go To Website
+.container
+    ul.nav.nav-tabs.header-tabs
+        li.active
+            a(data-toggle='tab', data-target='#home') Home
+        li
+            a(data-toggle='tab', data-target='#participants' ng-click="getParticipants()") Participants
+
+.container.mg-top-40
+    .tab-content
+        #home.tab-pane.fade.in.active
+            .row
+                .col-sm-8
+                    #about.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 About
+                        .panel-body
+                            h3.bold.clr-secondary.no-mg-top.mg-bottom-20 {{hackathonData.slogan}}
+                            div.description(ng-bind-html= 'hackathonData.description')
+                            p.mg-top-20 For more details, click
+                                a.mg-left-5(ng-href="{{hackathonData.url}}") here
+                            h4 Tags
+                            label.label.label-default(ng-repeat="tag in hackathonData.tags") {{tag}}
+
+                    #potential-team.panel.panel-default.panel-similar.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Potential Team mates
+                        .panel-body
+                            .row(ng-repeat="user in team track by $index | limitTo: 4" ng-init="profile = user.profile")
+                                .col-sm-10.similar-left
+                                    img.similar-thumbnail(src="{{profile.picture}}")
+                                    .similar-description
+                                        a
+                                            h4.similar-heading {{user.name}}
+                                        p.similar-location {{profile.role}} - {{profile.address.city}}, {{profile.address.country}}
+                                        label.label.label-default(ng-repeat="skill in profile.skills") {{skill}}
+                                .col-sm-2.similar-right
+                                    a.message-icon(ng-click="")
+                                        i.fa.fa-envelope-o.fa-lg
+                            hr.no-margin.clr-gray-lighter
+                .col-sm-4
+                    #essential-info.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Essential Info
+                        .panel-body
+                            .date-time.mg-bottom-20
+                                h4.bold.no-mg-top Date and Time
+                                p {{startDateTime}} - {{endDateTime}}
+                            .location
+                                h4.bold Location
+                                p.no-margin {{hackathonData.location.building}}
+                                p.no-margin {{hackathonData.location.street}}
+                                p.no-margin {{hackathonData.location.city}}, {{hackathonData.location.country}}
+                                p.no-margin {{hackathonData.location.postcode}}
+
+                    #prizes.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Prizes
+                        .panel-body
+                            h4.clr-secondary.bold.no-mg-top $3,000 in prizes
+                            .categories
+                                h5.bold Grand Prize
+                                h5.bold Second Place
+                                h5.bold Third Place
+
+                    #sponsors.panel.panel-default.mg-bottom-30
+                        .panel-heading
+                            .panel-title
+                                h3 Sponsors
+                        .panel-body
+        #participants.tab-pane.fade
+            h2.clr-secondary.mg-bottom-30 2 participants are attending this hackathon
+            #similar-users.panel.panel-default.panel-similar.mg-bottom-30
+                .panel-body
+                    .row(ng-repeat="user in participants track by $index" ng-init="profile = user.profile")
+                        .col-sm-10.similar-left
+                            img.similar-thumbnail(src="{{profile.picture}}")
+                            .similar-description
+                                a
+                                    h4.similar-heading {{user.name}}
+                                p.similar-location {{profile.role}} - {{profile.address.city}}, {{profile.address.country}}
+                                label.label.label-default(ng-repeat="skill in profile.skills") {{skill}}
+                        .col-sm-2.similar-right
+                            button.btn.btn-primary(ng-click="openMessageModal(user)")
+                                | Message
+                        hr.no-margin.clr-gray-lighter
+
+#messageModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4#myModalLabel.modal-title Modal title
+            .modal-body
+                .form-group
+                    label(for="message") Message
+                    textarea.form-control#message(name="message" ng-model="content")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                button.btn.btn-primary(type='button' ng-click="sendMessage(content)") Send Message
+
+
+
+
+
+
+

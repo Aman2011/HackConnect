@@ -1,0 +1,325 @@
+.panel.panel-default {
+  border: 2px solid @gray-lighter;
+  border-radius: 5px;
+
+  .panel-heading {
+    position: relative;
+    background-color: white;
+    border-bottom: 2px solid @gray-lighter;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    .edit-icon {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      display: none;
+      cursor: pointer;
+      color: @gray;
+    }
+  }
+
+  .panel-heading, .panel-body, .panel-footer {
+    padding: 20px;
+  }
+
+  &.panel-shadow {
+    box-shadow: 0 0 5px 0 @gray-lighter;
+    border-radius: 5px;
+    border-width: 1px;
+    .panel-heading {
+      border-bottom: 1px solid lighten(@gray-lighter, 5%);
+    }
+  }
+
+  &:hover {
+    .edit-icon {
+      display: block;
+    }
+  }
+}
+
+.panel.panel-login {
+  background: @panel-login-bg;
+  border-radius: @panel-login-border-radius;
+  border: none;
+
+  .panel-body {
+    padding: 40px;
+  }
+
+  .nav-tabs {
+    border-bottom: 0;
+
+    .nav-item {
+      width: 50%;
+      text-align: center;
+      margin-bottom: 0;
+      .nav-link {
+        border: none;
+        margin: 0;
+        border-radius: 0;
+        color: white;
+        font-size: 18px;
+        padding: 12px;
+        &:hover, &:focus {
+          background-color: transparent;
+        }
+      }
+
+      &.active {
+        a, a:hover, a:focus {
+          background-color: @panel-login-tab-selected-bg;
+        }
+      }
+    }
+  }
+
+  input:not(.normal) {
+    color: white;
+    background-color: #424242;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 0 30px;
+    height: 38px;
+    border: none;
+    &:focus {
+      box-shadow: none;
+      border: none;
+    }
+
+    hr {
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  a {
+    color: #00d793;
+  }
+}
+
+.panel.panel-similar {
+  .panel-body > .row {
+    border-bottom: 1px solid @gray-lighter;
+    display: flex;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .panel-body hr:last-of-type {
+    display: none;
+  }
+
+  .similar-left {
+    display: flex;
+    align-items: center;
+    .similar-thumbnail {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+    .similar-description {
+      margin-left: 20px;
+      display: inline-block;
+      .similar-heading {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-transform: capitalize;
+        display: inline-block;
+      }
+      .similar-location {
+        color: @gray-light;
+        margin: 0;
+      }
+      .label {
+        margin-bottom: 0;
+        margin-top: 5px;
+      }
+
+      a {
+        // color: @gray-dark;
+      }
+      a:hover, a:active {
+        text-decoration: none;
+       // color: @brand-primary;
+        cursor: pointer;
+      }
+    }
+  }
+  .similar-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.panel.panel-hackathon{
+  cursor: pointer;
+  .panel-body {
+    padding: 20px;
+
+    > .row {
+      display: flex;
+    }
+
+    .hackathon-left {
+      display: flex;
+      align-items: center;
+      .hackathon-thumbnail {
+        width: 130px;
+        height: 130px;
+        vertical-align: top;
+      }
+
+      .hackathon-description {
+        margin-left: 20px;
+        display: inline-block;
+        .hackathon-heading {
+          margin-top: 0;
+          margin-bottom: 5px;
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+        .location {
+          color: @brand-primary;
+
+          .location-text {
+            display: inline-block;
+            margin-left: 5px;
+            font-style: italic;
+          }
+        }
+      }
+    }
+
+
+    .hackathon-right {
+      border-left: 1px solid @gray-lighter;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .duration {
+        display: flex;
+        align-items: center;
+      }
+      i, .duration-text {
+        color: @brand-primary;
+        font-weight: bold;
+      }
+      .duration-text {
+        display: inline-block;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.panel.panel-connection {
+    .panel-body {
+      padding: 20px;
+      >.row {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid @gray-lighter;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        &:first-child {
+          padding-top: 0;
+        }
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+
+      .connection-left {
+        display: flex;
+        align-items: center;
+        .connection-thumbnail {
+          width: 70px;
+          height: 70px;
+          vertical-align: top;
+          border-radius: 100%;
+        }
+
+        .connection-description {
+          margin-left: 20px;
+          display: inline-block;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          a {
+            color: @gray-dark;
+          }
+          a:hover, a:active {
+            text-decoration: none;
+            color: @brand-primary;
+            cursor: pointer;
+          }
+          .connection-name {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-transform: capitalize;
+            display: inline-block;
+          }
+          .connection-role, .connection-location {
+            margin: 0;
+          }
+          .connection-location {
+            color: @gray-light;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+}
+
+#professional-details.panel {
+  p, h5 {
+    margin: 0;
+  }
+  .title {
+    font-weight: bold;
+  }
+  h5.value {
+    color: @gray-light;
+  }
+  li {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#social-profiles.panel {
+  .add-profile {
+    cursor: pointer;
+    color: @brand-primary;
+    font-weight: bold;
+    &:hover, &:active {
+      color: darken(@brand-primary, 15%);
+      .fa.fa-plus {
+        border-color: darken(@brand-primary, 15%);
+      }
+    }
+  }
+  .fa.fa-plus {
+    margin-right: 5px;
+    padding: 6px 5px;
+    border: 1.5px solid @brand-primary;
+    border-radius: 50%;
+  }
+}

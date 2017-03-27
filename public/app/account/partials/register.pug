@@ -1,0 +1,21 @@
+form(name="register" action='/signup' method="POST" ng-controller="RegisterCtrl" novalidate)
+    .form-group
+        label.sr-only(for="name")
+        input.form-control#name(type="text" name="name" placeholder="Full Name" ng-model="name" required)
+    .form-group
+        label.sr-only(for="email")
+        input.form-control#email(type="email" name="email" placeholder="Email Address" ng-model="email" required)
+        p.help-block(ng-show="register.email.$dirty && register.email.$invalid") Please enter proper email
+    .form-group
+        label.sr-only(for = "password")
+        input.form-control#password(type="password" name="password" placeholder="Password" ng-model="password" required)
+    .form-group
+        label.sr-only(for = "confirm-password")
+        input.form-control#confirm-password(type="password" name="password_confirm" placeholder="Confirm Password" ng-model="password_confirm" validate-equals="password")
+        p.help-block(ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid") please match the passwords
+    button.btn.btn-login(type="submit") Register
+    p.clr-white.no-margin #{signUpMessage}
+    p.clr-white.pd-top-20 Or login with:
+    a(href="/auth/linkedin")
+        i.fa.fa-linkedin-square.fa-2_5x.clr-white.mg-right-10
+

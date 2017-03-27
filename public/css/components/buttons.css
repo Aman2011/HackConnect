@@ -1,0 +1,12 @@
+.btn.btn-login {
+  background-color: #0099ff;
+  border-radius: 30px;
+  color: white;
+  transition: all 0.3s;
+  padding: 8px 30px;
+}
+.btn.btn-login:hover,
+.btn.btn-login:active {
+  background-color: black;
+  opacity: 0.8;
+}

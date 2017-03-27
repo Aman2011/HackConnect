@@ -1,0 +1,26 @@
+.user-header
+    .container
+        .vertical-center
+            h1.clr-white Search People
+.container.mg-top-40
+    .row.mg-bottom-20.search
+        .col-sm-8.col-sm-offset-2
+            .row
+                .col-sm-10
+                    .form-group
+                        label.sr-only(for="search")
+                        input.form-control#search(type="text" name="search" placeholder="search by name" ng-model="searchText")
+                .col-sm-2
+                    button.btn.btn-primary(ng-click="search()") Search
+    .row.cards
+        .col-sm-3.mg-bottom-20(ng-repeat="user in users")
+            .card.user-card(ng-click="openUserProfile(user._id) | limitTo: 12")
+                img.profile-pic(src="{{user.profile.picture}}")
+                div.user-details
+                    h4.bold {{user.name}}
+                    p.clr-gray-light {{user.profile.role}}
+                    .location
+                        i.fa.fa-map-marker.mg-right-10
+                        | {{user.profile.address.city}}, {{user.profile.address.country}}
+    div.text-center
+        button.btn.btn-primary.mg-bottom-20(ng-click="getUsers()" ng-show="newLength == 12") load more
