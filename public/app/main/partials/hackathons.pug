@@ -15,7 +15,7 @@
     .row.hackathon-list
         .col-sm-3.hackathon-column.mg-bottom-20(ng-repeat="hackathon in hackathons")
             .card.hackathon-card(ng-click="openHackathon(hackathon._id)")
-                img.hackathon-thumbnail(src="images/main-bg.jpg")
+                img.hackathon-thumbnail(src="img/main-bg.jpg")
                 div.hackathon-details
                     h4.bold {{hackathon.name}}
                     p.clr-gray-light {{hackathon.slogan}}

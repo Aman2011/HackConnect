@@ -2135,7 +2135,7 @@ ngFileUpload.service('UploadResize', ['UploadValidate', '$q', function (UploadVa
 
   /**
    * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
-   * images to fit into a certain area.
+   * img to fit into a certain area.
    * Source:  http://stackoverflow.com/a/14731922
    *
    * @param {Number} srcWidth Source area width

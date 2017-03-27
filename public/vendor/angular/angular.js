@@ -8313,11 +8313,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *
    * @description
    * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during images[src] sanitization.
+   * urls during img[src] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via html links.
    *
-   * Any url about to be assigned to images[src] via data-binding is first normalized and turned into
+   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
    * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationWhitelist`
    * regular expression. If a match is found, the original url is written into the dom. Otherwise,
    * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
@@ -8668,10 +8668,10 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
         if ((nodeName === 'a' && (key === 'href' || key === 'xlinkHref')) ||
             (nodeName === 'images' && key === 'src')) {
-          // sanitize a[href] and images[src] values
+          // sanitize a[href] and img[src] values
           this[key] = value = $$sanitizeUri(value, key === 'src');
         } else if (nodeName === 'images' && key === 'srcset' && isDefined(value)) {
-          // sanitize images[srcset] values
+          // sanitize img[srcset] values
           var result = '';
 
           // first check if there are spaces because it's not the same pattern
@@ -10245,7 +10245,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       }
       var tag = nodeName_(node);
       // All tags with src attributes require a RESOURCE_URL value, except for
-      // images and various html5 media tags.
+      // img and various html5 media tags.
       if (attrNormalizedName === 'src' || attrNormalizedName === 'ngSrc') {
         if (['images', 'video', 'audio', 'source', 'track'].indexOf(tag) === -1) {
           return $sce.RESOURCE_URL;
@@ -18603,7 +18603,7 @@ function $RootScopeProvider() {
 /**
  * @this
  * @description
- * Private service to sanitize uris for links and images. Used by $compile and $sanitize.
+ * Private service to sanitize uris for links and img. Used by $compile and $sanitize.
  */
 function $$SanitizeUriProvider() {
   var aHrefSanitizationWhitelist = /^\s*(https?|ftp|mailto|tel|file):/,
@@ -18637,11 +18637,11 @@ function $$SanitizeUriProvider() {
   /**
    * @description
    * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during images[src] sanitization.
+   * urls during img[src] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via html links.
    *
-   * Any url about to be assigned to images[src] via data-binding is first normalized and turned into
+   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
    * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationWhitelist`
    * regular expression. If a match is found, the original url is written into the dom. Otherwise,
    * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
