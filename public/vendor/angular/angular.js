@@ -8313,11 +8313,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *
    * @description
    * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during img[src] sanitization.
+   * urls during images[src] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via html links.
    *
-   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
+   * Any url about to be assigned to images[src] via data-binding is first normalized and turned into
    * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationWhitelist`
    * regular expression. If a match is found, the original url is written into the dom. Otherwise,
    * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.
@@ -8667,11 +8667,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         nodeName = nodeName_(this.$$element);
 
         if ((nodeName === 'a' && (key === 'href' || key === 'xlinkHref')) ||
-            (nodeName === 'img' && key === 'src')) {
-          // sanitize a[href] and img[src] values
+            (nodeName === 'images' && key === 'src')) {
+          // sanitize a[href] and images[src] values
           this[key] = value = $$sanitizeUri(value, key === 'src');
-        } else if (nodeName === 'img' && key === 'srcset' && isDefined(value)) {
-          // sanitize img[srcset] values
+        } else if (nodeName === 'images' && key === 'srcset' && isDefined(value)) {
+          // sanitize images[srcset] values
           var result = '';
 
           // first check if there are spaces because it's not the same pattern
@@ -10245,9 +10245,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       }
       var tag = nodeName_(node);
       // All tags with src attributes require a RESOURCE_URL value, except for
-      // img and various html5 media tags.
+      // images and various html5 media tags.
       if (attrNormalizedName === 'src' || attrNormalizedName === 'ngSrc') {
-        if (['img', 'video', 'audio', 'source', 'track'].indexOf(tag) === -1) {
+        if (['images', 'video', 'audio', 'source', 'track'].indexOf(tag) === -1) {
           return $sce.RESOURCE_URL;
         }
       // maction[xlink:href] can source SVG.  It's not limited to <maction>.
@@ -18637,11 +18637,11 @@ function $$SanitizeUriProvider() {
   /**
    * @description
    * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during img[src] sanitization.
+   * urls during images[src] sanitization.
    *
    * The sanitization is a security measure aimed at prevent XSS attacks via html links.
    *
-   * Any url about to be assigned to img[src] via data-binding is first normalized and turned into
+   * Any url about to be assigned to images[src] via data-binding is first normalized and turned into
    * an absolute url. Afterwards, the url is matched against the `imgSrcSanitizationWhitelist`
    * regular expression. If a match is found, the original url is written into the dom. Otherwise,
    * the absolute url is prefixed with `'unsafe:'` string and only then is it written into the DOM.

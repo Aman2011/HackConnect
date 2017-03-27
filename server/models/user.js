@@ -25,7 +25,7 @@ var userSchema = mongoose.Schema({
         },
         projectTypes: [String],
         skills: [String],
-        picture: {type: String, default: "../img/default-profile-pic.png"},
+        picture: {type: String, default: "../images/default-profile-pic.png"},
         bio: String,
         experience: Number,
         personalWebsite: String,
