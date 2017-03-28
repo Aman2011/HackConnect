@@ -18,8 +18,8 @@ block main-content
                                 a.nav-link(data-toggle="tab" href="#login" role="tab") Member Login
                         .tab-content.panel-body
                             .tab-pane.fade.in#register(class=registerTab === 'active'? "in active":"" role="tabpanel")
-                                div(ng-include="'/partials//account/partials/register'")
+                                include login/register
                             .tab-pane.fade#login(class=loginTab === 'active' ? "in active" : "" role = "tabpanel")
-                                div(ng-include="'/partials//account/partials/login'")
+                                include login/login
 
 

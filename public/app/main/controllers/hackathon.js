@@ -4,6 +4,8 @@ angular.module('app')
         $scope.hackathonData = initialData.hackathonData;
         $scope.team = initialData.team;
         $scope.participants = [];
+        $scope.searchText = "";
+        $scope.orderType = "name";
         $scope.dateDuration = hackathonService.getDateDuration($scope.hackathonData.start_date, $scope.hackathonData.end_date);
 
         $scope.getParticipants = function () {

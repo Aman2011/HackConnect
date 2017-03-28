@@ -13,6 +13,7 @@
     {"name": "Back End Developer", "score": 25},
     {"name": "Full Stack Developer", "score": 40},
     {"name": "Designer", "score": 30},
+    {"name": "Web Developer", "score": 35},
     {"name": "Front End Developer", "score": 25}
   ],
   "Web Developer": [
@@ -32,6 +33,11 @@
   "Designer": [
     {"name": "Front End Developer", "score": 40},
     {"name": "Web Developer", "score": 30},
-    {"name": "Full Stack Developer", "score": 30}
+    {"name": "Full Stack Developer", "score": 30},
+    {"name": "UI Developer", "score": 30}
+
+  ],
+  "Mobile Developer": [
+    {"name": "Mobile Developer", "score": 40}
   ]
 }

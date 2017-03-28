@@ -9,7 +9,7 @@
                         span.fa.fa-pencil-square-o.fa-2x.clr-primary(aria-hidden=true)
                 ul.inbox-thread-list.list-unstyled.no-margin
                     li(ng-repeat="conversation in conversations" ng-click="getConversation(conversation)" ng-class="{'active':conversation == selectedConversation, 'unread': !conversation.message.read && conversation.message.author === conversation.participant._id}")
-                        img.user-thumbnail(src="{{conversation.participant.profile.picture}}")
+                        img.user-thumbnail(ng-src="{{conversation.participant.profile.picture| trustUrl}}")
                         .message-description
                             h4.no-margin.heading {{conversation.participant.name}}
                             p.time.pull-right Time
@@ -22,7 +22,7 @@
                         span.fa.fa-ellipsis-h.fa-2x(aria-hidden=true)
                 ul.inbox-thread-messages.list-unstyled
                     li(ng-repeat="message in messages" ng-class="alignText(message.author._id)")
-                        img.user-thumbnail(src="{{message.author.profile.picture}}" ng-if="message.author._id != currentUser._id")
+                        img.user-thumbnail(ng-src="{{message.author.profile.picture | trustUrl}}" ng-if="message.author._id != currentUser._id")
                         span.message-bubble
                             p.no-margin {{message.content}}
                 .inbox-new-message

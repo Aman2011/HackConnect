@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('ProfileCtrl', function ($scope, $location, $http, userService, initialData, dataService, hackathonService) {
+    .controller('ProfileCtrl', function ($scope, $location, $http, userService, initialData, dataService, hackathonService, Upload) {
         $scope.userData = initialData.userData;
         $scope.similarUsers = initialData.similarUsers;
         $scope.hackathons = [];
@@ -90,6 +90,24 @@ angular.module('app')
         $scope.removeSkill = function(skill) {
             var index = $scope.skills.indexOf(skill);
             $scope.skills.splice(index, 1);
+        }
+
+        $scope.sendImage = function () {
+            var dataUrl = $scope.croppedDataUrl;
+            var file = $scope.picFile;
+            if( file != undefined) {
+                Upload.upload({
+                    url: 'profile/upload',
+                    data: {
+                        file: Upload.dataUrltoBlob(dataUrl, file.name)
+                    },
+                }).then(function (response) {
+                    if(response.data)
+                        $('.profile-pic').attr("src", $scope.croppedDataUrl);
+                }, function (error) {
+                    console.log(error);
+                });
+            }
         }
 
         $scope.isEmpty = function (value) {

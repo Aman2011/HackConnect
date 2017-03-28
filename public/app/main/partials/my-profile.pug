@@ -11,7 +11,7 @@ block scripts
                         strong {{userData.name}}
                     h4.clr-white.text-center {{userData.role}}
                 .pull-right
-                    button.btn.btn-outline(data-toggle="modal" data-target="#editProfileModal") Edit Profile
+                    button.btn.btn-outline(data-toggle="modal" data-target="#editProfileModal") Edit Header
 .container
     ul.nav.nav-tabs.header-tabs
         li.active
@@ -30,7 +30,10 @@ block scripts
                         i.fa.fa-pencil.fa-lg.edit-icon(ng-click="edit('#editBio')")
                 .panel-body
                     .text-center.mg-bottom-20
-                        img.profile-pic(src="{{userData.picture}}")
+                        span.image-container(data-toggle="modal" data-target="#uploadModal")
+                            i.fa.fa-pencil.fa-lg
+                            img.profile-pic(ng-src="{{userData.picture | trustUrl}}")
+                            .edit-overlay
                     p {{userData.bio}}
             .row
                 .col-sm-8
@@ -48,7 +51,7 @@ block scripts
                         .panel-body
                             .row(ng-repeat="user in similarUsers | limitTo: 3")
                                .col-sm-10.similar-left
-                                   img.similar-thumbnail(src="{{user.profile.picture}}")
+                                   img.similar-thumbnail(ng-src="{{user.profile.picture | trustUrl}}")
                                    .similar-description
                                         a
                                             h4.similar-heading {{user.name}}
@@ -126,7 +129,7 @@ block scripts
                 .panel-body
                     .row(ng-repeat="connection in connections track by $index")
                         .col-sm-10.connection-left
-                            img.connection-thumbnail(src="{{connection.profile.picture}}")
+                            img.connection-thumbnail(ng-src="{{connection.profile.picture | trustUrl}}")
                             .row.connection-description
                                 .col-sm-5
                                     a
@@ -261,6 +264,36 @@ block scripts
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Cancel
                 button.btn.btn-primary(type='button' ng-click="saveEdit('socialProfiles', '#editSocialProfiles', socialProfiles)") Save
+
+#uploadModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Upload Photo
+            .modal-body
+                .row.mg-t-b-25.display-flex
+                    .col-sm-7
+                        .mg-l-f-25
+                            .drop-box(ng-class="picFile != undefined ? 'no-border':''" ng-model="picFile" ngf-pattern="image/*" ngf-drop)
+                                img-crop(image='picFile  | ngfDataUrl', result-image='croppedDataUrl', ng-init="croppedDataUrl=''")
+                            h5.mg-top-20 Select a file:
+                            button(ngf-select='' ng-model='picFile' accept='image/*' ngf-max-size='5MB' ngf-model-invalid='errorFile')
+                                | Choose Picture
+                            | {{picFile.name}}
+                            i(ng-show='createProfile.file.$error.maxSize')
+                                | File too large
+                                | {{errorFile.size / 1000000|number:1}}MB: max 5M
+                    .col-sm-5.text-center
+                        .mg-l-f-25
+                            h4.no-margin.text-center Your Photo
+                            img.profile-pic.mg-top-20(ng-src='{{croppedDataUrl | trustUrl}}')
+
+            .modal-footer
+                button.btn.btn-primary(type='button', data-dismiss='modal' ng-click="sendImage()") Save
+                button.btn.btn-link(type='button' data-dismiss='modal') Cancel
+
 
 
 

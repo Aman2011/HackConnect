@@ -102,6 +102,40 @@
   }
 }
 
+.image-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+  .edit-overlay {
+    top: 0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 100%;
+    position: absolute;
+  }
+
+  > i {
+    position: absolute;
+    top: 50%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+
+  &:hover {
+    .edit-overlay {
+      background-color: fadeout(#000, 45%);
+    }
+    i {
+      display: block;
+      color: white;
+      z-index: 1000;
+    }
+  }
+
+}
+
 // for angular bootstrap library
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 

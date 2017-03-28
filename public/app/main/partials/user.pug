@@ -29,7 +29,7 @@
                         h3 About
                 .panel-body
                     .text-center.mg-bottom-20
-                        img.profile-pic(src="{{userData.picture}}")
+                        img.profile-pic(ng-src="{{userData.picture | trustUrl}}")
                     p {{userData.bio}}
             .row
                 .col-sm-8
@@ -46,7 +46,7 @@
                         .panel-body
                             .row(ng-repeat="user in similarUsers | limitTo: 3")
                                 .col-sm-10.similar-left
-                                    img.similar-thumbnail(src="{{user.profile.picture}}")
+                                    img.similar-thumbnail(ng-src="{{user.profile.picture | trustUrl}}")
                                     .similar-description
                                         a
                                             h4.similar-heading {{user.name}}
@@ -104,7 +104,7 @@
                 .panel-body
                     .row
                         .col-sm-8.hackathon-left
-                            img.hackathon-thumbnail(src="img/main-bg.jpg")
+                            img.hackathon-thumbnail(ng-src="img/main-bg.jpg" | trustUrl)
                             .hackathon-description
                                 h2.hackathon-heading {{hackathon.name}}
                                 div.location
@@ -121,7 +121,7 @@
                 .panel-body
                     .row(ng-repeat="connection in connections track by $index")
                         .col-sm-10.connection-left
-                            img.connection-thumbnail(src="{{connection.profile.picture}}")
+                            img.connection-thumbnail(ng-src="{{connection.profile.picture | trustUrl}}")
                             .row.connection-description
                                 .col-sm-5
                                     a

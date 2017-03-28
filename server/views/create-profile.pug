@@ -16,7 +16,7 @@ block main-content
         p.text-center.clr-gray-light This will help us connect you with the right people for your project
         section
             .row
-                .col-sm-offset-2.col-sm-8
+                .col-sm-offset-2.col-sm-8.col-md-offset-3.col-md-6
                     .panel.panel-default
                         .panel-body
                             .form-group
@@ -78,7 +78,7 @@ block main-content
                             .form-group
                                 label Please upload your profile picture
                                     .picture-container.mg-top-20
-                                        img.profile-pic(src="{{profile.picture}}")
+                                        img.profile-pic(ng-src="{{profile.picture | trustUrl}}")
                                         a.clr-gray-light(data-toggle="modal" data-target="#uploadModal")  Choose a Photo
                                         span.err(ng-show='errorMsg') {{errorMsg}}
                             .form-group
@@ -109,7 +109,7 @@ block main-content
                                                 .col-sm-5.text-center
                                                     .mg-l-f-25
                                                         h4.no-margin.text-center Your Photo
-                                                        img.profile-pic.mg-top-20(ng-src='{{croppedDataUrl}}')
+                                                        img.profile-pic.mg-top-20(ng-src='{{croppedDataUrl | trustUrl}}')
 
                                         .modal-footer
                                             button.btn.btn-primary(type='button', data-dismiss='modal' ng-click="saveImage()") Save

@@ -15,7 +15,7 @@
     .row.cards
         .col-sm-3.mg-bottom-20(ng-repeat="user in users")
             .card.user-card(ng-click="openUserProfile(user._id) | limitTo: 12")
-                img.profile-pic(src="{{user.profile.picture}}")
+                img.profile-pic(ng-src="{{user.profile.picture | trustUrl}}")
                 div.user-details
                     h4.bold {{user.name}}
                     p.clr-gray-light {{user.profile.role}}

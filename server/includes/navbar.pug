@@ -27,7 +27,7 @@
                         h5 Requests
                         li.request(ng-repeat="request in requests" ng-class="request.read ? '':'unread'")
                             .request-left
-                                img.profile-thumbnail(src="{{request.sender.profile.picture}}")
+                                img.profile-thumbnail(ng-src="{{request.sender.profile.picture | trustUrl}}")
                                 .request-description
                                     a(ng-click="openUserProfile(request.sender._id)")
                                          strong {{request.sender.name}}
@@ -48,7 +48,7 @@
                         h5 Messages
                         li.message(ng-repeat="conversation in conversations" ng-class="conversation.message.read ? '':'unread'" ng-click="selectConversation(conversation)")
                             a(href='#')
-                                img.profile-thumbnail(src="{{conversation.message.author.profile.picture}}")
+                                img.profile-thumbnail(ng-src="{{conversation.message.author.profile.picture | trustUrl}}")
                                 .message-description
                                     .heading
                                         strong {{conversation.message.author.name}}{{(conversation.count > 1? ' ('+conversation.count+')':'')}}
@@ -66,7 +66,7 @@
                         h5 Notifications
                         li(ng-repeat="notification in notifications track by $index")
                             a(ng-click="userService.openUserProfile(notification.sender._id)")
-                                img.profile-thumbnail(src="{{notification.sender.profile.picture}}")
+                                img.profile-thumbnail(ng-src="{{notification.sender.profile.picture | trustUrl}}")
                                 strong {{notification.sender.name}}
                                 |  accepted your connection request
                         li.clr-gray-light.pd-all-10(ng-if="notifications.length == 0")

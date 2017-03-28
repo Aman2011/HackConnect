@@ -42,4 +42,11 @@ angular.module('app').config(function (localStorageServiceProvider) {
         .setStorageType('sessionStorage');
 });
 
+angular.module('app')
+    .filter('trustUrl', function ($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    });
+
 

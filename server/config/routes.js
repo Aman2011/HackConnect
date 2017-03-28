@@ -153,5 +153,5 @@ module.exports = function (app, passport) {
     });
 
     app.post('/profile/data/update', auth.isLoggedIn, users.updateProfile)
-
+    app.post('/profile/upload', auth.isLoggedIn, users.isUserVerified, users.uploadImage)
 }

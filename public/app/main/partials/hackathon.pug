@@ -3,7 +3,7 @@
     .container
             .pull-left
                 .hackathon-info
-                    h2.clr-white.no-mg-top.mg-bottom-5
+                    h2.clr-white.no-mg-top.mg-bottom-5.text-center
                         strong {{hackathonData.name}}
                     h4.clr-white.text-center.date
                        i.clr-white.fa.fa-clock-o.fa-lg
@@ -55,7 +55,7 @@
                         .panel-body
                             .row(ng-repeat="user in team track by $index | limitTo: 4" ng-init="profile = user.profile")
                                 .col-sm-10.similar-left
-                                    img.similar-thumbnail(src="{{profile.picture}}")
+                                    img.similar-thumbnail(ng-src="{{profile.picture | trustUrl}}")
                                     .similar-description
                                         a
                                             h4.similar-heading {{user.name}}
@@ -98,12 +98,19 @@
                                 h3 Sponsors
                         .panel-body
         #participants.tab-pane.fade
-            h2.clr-secondary.mg-bottom-30 2 participants are attending this hackathon
+            .row.mg-bottom-20.search
+                .col-sm-6.col-sm-offset-3
+                    .row
+                        .col-sm-12
+                            .form-group
+                                label.sr-only(for="search")
+                                input.form-control#search(type="text" name="search" placeholder="Search by keyword" ng-model="searchText")
+
             #similar-users.panel.panel-default.panel-similar.mg-bottom-30
                 .panel-body
-                    .row(ng-repeat="user in participants track by $index" ng-init="profile = user.profile")
+                    .row(ng-repeat="user in participants |orderBy: orderType | filter: searchText" ng-init="profile = user.profile")
                         .col-sm-10.similar-left
-                            img.similar-thumbnail(src="{{profile.picture}}")
+                            img.similar-thumbnail(ng-src="{{profile.picture | trustUrl}}")
                             .similar-description
                                 a
                                     h4.similar-heading {{user.name}}
