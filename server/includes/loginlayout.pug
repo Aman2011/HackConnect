@@ -4,7 +4,7 @@ html
         title HackConnect
         base(href="/")
         //link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-        include head
+        include login-head
     body(ng-app="app")
         .navbar.navbar-default.navbar-static-top
             .container
@@ -20,7 +20,7 @@ html
         footer.text-center
             p.no-margin &copy; 2016 HackConnect
 
-        include scripts
+        include login-scripts
         script(type="text/javascript", src="/app/account/app.js")
         script(type="text/javascript", src="/app/account/controllers/register.js")
         script(type="text/javascript", src="/app/account/controllers/login.js")
