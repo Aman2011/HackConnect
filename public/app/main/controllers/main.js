@@ -8,7 +8,7 @@ angular.module('app')
         }
 
         $scope.isInbox = function () {
-            if($location.path() === "/inbox") {
+            if($location.path().includes("/inbox")) {
              return true;
             }
 

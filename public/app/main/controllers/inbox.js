@@ -72,7 +72,9 @@ angular.module('app')
                 $scope.selectedConversation.message = response.data;
                 $scope.newMessage = "";
                 console.log(response.data);
-
+                $timeout(function () {
+                    $scope.scrollToBottom();
+                }, 0.001);
                 response.data.participants = [recipientId];
                 socket.emit("send-chat-message", response.data);
             }, function (err) {
@@ -83,7 +85,40 @@ angular.module('app')
         socket.on('message-received', function (data) {
             console.log(data);
             $scope.$apply(function () {
-                $scope.messages.push(data);
+                if(data.conversationId == $scope.selectedConversation._id) {
+                    $http.post("/messages/"+data.conversationId+"/read").then(function (response) {
+                        if(response.data) {
+                            console.log("All messages read");
+                        }
+                    })
+                    data.read = true;
+                    $scope.messages.push(data);
+                    $scope.selectedConversation.message = angular.copy(data);
+                    $scope.selectedConversation.message.author = $scope.selectedConversation.participant._id;
+                    $timeout(function () {
+                        $scope.scrollToBottom();
+                    }, 0.002);
+                }
+                else {
+                    var newConversation = true;
+                    angular.forEach($scope.conversations, function (conversation) {
+                        if(conversation._id == data.conversationId) {
+                            conversation.message = data;
+                            conversation.message.author = conversation.participant._id;
+                            console.log(conversation);
+                            newConversation = false;
+                        }
+                    })
+
+                    if(newConversation) {
+                        var conversation = {
+                            _id: data.conversationId,
+                            message: data,
+                            count: 1
+                        }
+                        $scope.conversations.push(conversation);
+                    }
+                }
             })
         })
 

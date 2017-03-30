@@ -32,11 +32,13 @@ exports.sendMessage = function(req, res, next) {
                 if (err) {
                     res.send({ error: err });
                 }
+
                 Message.populate(message, {
                     path: "author",
                     select: "name profile.picture"
-                }, function (err, message) {
-                    res.send(message);
+                }, function (err, updatedMessage) {
+                    console.log(message);
+                    res.send(updatedMessage);
                 })
             })
         }else {
@@ -65,7 +67,14 @@ exports.newConversation = function (req, res) {
                     res.send({ error: err });
                     return next(err);
                 }
-                res.send(message);
+
+                Message.populate(message, {
+                    path: "author",
+                    select: "name profile.picture"
+                }, function (err, message) {
+                    console.log(message);
+                    res.send(message);
+                })
             })
         }
     })

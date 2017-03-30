@@ -8,12 +8,28 @@ angular.module('app')
         $scope.notificationsCounter = $scope.notifications.length;
         $scope.userService = userService;
         $scope.userName = window.bootstrappedUserObject.name;
-
         $scope.isInbox = $scope.$parent.isInbox;
 
         if(!$scope.isInbox()) {
             socket.on('message-received', function (data) {
-                $scope.conversations.push(data);
+                console.log(data);
+                var newConversation = true;
+                angular.forEach($scope.conversations, function (conversation) {
+                    if(data.conversationId == conversation._id) {
+                        conversation.message = data;
+                        conversation.count += 1;
+
+                        newConversation = false;
+                    }
+                })
+                if(newConversation) {
+                    var conversation = {
+                        _id: data.conversationId,
+                        message: data,
+                        count: 1
+                    }
+                    $scope.conversations.push(conversation);
+                }
                 $scope.conversationsCounter += 1;
                 notifier.notify("You have received a new message");
             })
@@ -117,19 +133,20 @@ angular.module('app')
         
         $scope.selectConversation = function (conversation) {
             localStorageService.set("selectedConversation", conversation._id);
+            conversation.message.read = true;
             $location.path('/inbox');
         }
         
         socket.on('connected', function (data) {
             console.log(data);
-            $scope.notifications.push(data + " has accepted your request");
+            $scope.notifications.unshift(data + " has accepted your request");
             $scope.notificationsCounter = $scope.notifications.length;
             notifier.notify(data + " has accepted your request");
         })
 
         socket.on('request-received', function (data) {
             console.log(data);
-            $scope.requests.push(data);
+            $scope.requests.unshift(data);
             $scope.requestsCounter = $scope.requests.length;
             notifier.notify("You have received a request from " + data.sender.name);
 

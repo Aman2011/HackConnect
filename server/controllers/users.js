@@ -261,10 +261,10 @@ exports.getSimilarUsers = function (user, res) {
                     compatibility += 40;
                 }
 
-                if(user.profile.education && user.profile.education.school != "" && user.profile.education.school === profile.education.school) {
+                if(user.profile.education && user.profile.education.school && user.profile.education.school != "" && user.profile.education.school === profile.education.school) {
                     compatibility += 10;
                 }
-                if(user.profile.employment && user.profile.employment.company != "" && user.profile.employment.company === profile.employment.company){
+                if(user.profile.employment && user.profile.employment.company && user.profile.employment.company != "" && user.profile.employment.company === profile.employment.company){
                     compatibility += 10;
                 }
                 profile.skills.forEach(function (skill) {

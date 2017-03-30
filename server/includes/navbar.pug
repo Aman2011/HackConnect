@@ -46,7 +46,7 @@
                             i.fa.fa-comments-o.fa-1_4x
                     ul.dropdown-menu.messages
                         h5 Messages
-                        li.message(ng-repeat="conversation in conversations" ng-class="conversation.message.read ? '':'unread'" ng-click="selectConversation(conversation)")
+                        li.message(ng-repeat="conversation in conversations | orderBy: '-message.createdAt'" ng-class="conversation.message.read ? '':'unread'" ng-click="selectConversation(conversation)")
                             a(href='#')
                                 img.profile-thumbnail(ng-src="{{conversation.message.author.profile.picture | trustUrl}}")
                                 .message-description
