@@ -5,7 +5,7 @@
                 .pull-left
                     h2.clr-white.no-mg-top
                         strong {{userData.name}}
-                    h4.clr-white.text-center {{userData.role}}
+                    h4.clr-white {{userData.role}}
                 .pull-right
                     button.btn.btn-outline.mg-right-10(ng-click="sendConnectionRequest()" ng-if="connectionStatus == 'connect'") Connect
                     button.btn.btn-outline.mg-right-10(data-toggle="modal" data-target="#disconnectModal" ng-if="connectionStatus == 'connected'") Connected

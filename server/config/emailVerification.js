@@ -17,10 +17,13 @@ var VerificationToken = require('mongoose').model('VerificationToken'),
 exports.createVerificationToken = function(userId){
     var token = encrypt.createUniqueToken();
 
-    var tokenData = new VerificationToken({_userId: userId, token: token});
+    var tokenData = {_userId: userId, token: token};
 
     VerificationToken.update({_userId: tokenData._userId}, tokenData, {upsert: true}, function (err, tokenDoc) {
-        if(err) console.log(err); return err;
+        if(err) {
+            console.log(err);
+            return err;
+        }
     })
     return tokenData.token;
 }

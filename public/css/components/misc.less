@@ -15,8 +15,11 @@
 .hackathon-header {
   min-height: 400px;
   position: relative;
+  &.long {
+    min-height: 460px;
+  }
   .hackathon-img {
-    background: url(https://mlh.io/assets/home/lead-bg-21f1a674f54f6f41ca28b17c35923d83.jpg);
+    background-image: url('/public/img/main-bg.jpg');
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: cover !important;
@@ -24,6 +27,20 @@
     width: 100%;
     height: 100%;
   }
+
+  .hackathon-logo {
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    &~.share-icons {
+      margin: 15px 0 !important;
+    }
+    &~.footer {
+      padding-top: 15px !important;
+    }
+  }
+
   .container {
     margin-top: -30px;
     z-index: 100;
@@ -61,6 +78,9 @@
         text-align: center;
         padding-top: 20px;
         border-top: 1px solid fadeout(#fff, 50%);
+        p {
+          margin-bottom: 0;
+        }
       }
 
     }

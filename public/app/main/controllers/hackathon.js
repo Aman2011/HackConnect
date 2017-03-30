@@ -2,6 +2,7 @@ angular.module('app')
     .controller('HackathonCtrl', function ($scope, $location, $http, $window, initialData, userService, hackathonService) {
         var search = $location.search();
         $scope.hackathonData = initialData.hackathonData;
+        console.log($scope.hackathonData);
         $scope.team = initialData.team;
         $scope.participants = [];
         $scope.searchText = "";

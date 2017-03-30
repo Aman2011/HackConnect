@@ -5,7 +5,7 @@ html
         //link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
         include head
         base(href="/")
-    body.no-padding(ng-app='app' ng-controller='MainCtrl')
+    body.body-padding(ng-app='app' ng-controller='MainCtrl')
         include currentUser
         include navbar
         .content(ng-class="isInbox()?'display-flex':''")

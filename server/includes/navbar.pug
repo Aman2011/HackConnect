@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-static-top(ng-controller="NavbarCtrl")
+.navbar.navbar-default.navbar-fixed-top(ng-controller="NavbarCtrl")
     .container.ng-cloak
         .navbar-header
             button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
@@ -10,7 +10,7 @@
                 img(src='/img/logo.png')
         .navbar-collapse.collapse
             ul.nav.navbar-nav(ng-if="checkCreateProfile()")
-                li(ng-class="checkRoute('profile, home')")
+                li(ng-class="checkRoute('profile,home')")
                     a(href='/profile') Profile
                 li(ng-class="checkRoute('people')")
                     a(href='/people') People
@@ -85,9 +85,11 @@
                                 | Account
                             ul.list-unstyled
                                 li
-                                    a(href="") Change Email
+                                    a(data-toggle="modal" data-target="#nameModal") Change Name
                                 li
-                                    a(href="") Change Password
+                                    a(data-toggle="modal" data-target="#changePasswordModal") Change Password
+                                li
+                                    a(data-toggle="modal") Update Preferences
 
                         li.manage
                             h5.no-margin
@@ -105,4 +107,54 @@
                         li.manage
                             a.pd-all-10(ng-click="logout()") Logout
 
+#nameModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Change Name
+            .modal-body
+                .form-group
+                    label(for="name") Name
+                    input.form-control#name(name="name" ng-model="name")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="changeName(name)") Save
+
+#changePasswordModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Change Password
+            .modal-body
+                .form-group(ng-class="errorMessage? 'has-error has-feedback':''")
+                    label(for="old-password") Old Password
+                    input.form-control#old-password(name="oldPassword" type="password" ng-model="oldPassword")
+                p.error-message(ng-show = "errorMessage") {{errorMessage}}
+
+                .form-group
+                    label(for="new-password") New Password
+                    input.form-control#new-password(name="newPassword" type="password" ng-model="newPassword")
+                .form-group
+                    label(for="confirm-password") Re-enter new Password
+                    input.form-control#confirm-password(name="confirmPassword" type="password" ng-model="confirmPassword")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="changePassword(oldPassword, newPassword)" ng-disabled="newPassword != confirmPassword || !newPassword") Change
+
+#confirmationModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title {{confirmation.title}}
+            .modal-body.text-center
+                i.block.fa-3x.mg-bottom-20.clr-primary(ng-class="confirmation.icon")
+                h4 {{confirmation.text}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
 

@@ -64,7 +64,10 @@ module.exports = function (app, passport) {
         else
             res.redirect('/login');
     })
-    app.post('/reset-password', users.resetPassword)
+    app.post('/reset-password', function (req, res) {
+        var id = req.flash('id')[0];
+        users.resetPassword(req, res, id, req.body.password, "forgot");
+    })
 
     // linkedin auth routes
     app.get('/auth/linkedin', passport.authenticate('linkedin',{ scope: ['r_basicprofile', 'r_emailaddress'], state: 'SOME LINKEDIN STATE'}));
@@ -154,4 +157,5 @@ module.exports = function (app, passport) {
 
     app.post('/profile/data/update', auth.isLoggedIn, users.updateProfile)
     app.post('/profile/upload', auth.isLoggedIn, users.isUserVerified, users.uploadImage)
+    app.post('/profile/change-password', auth.isLoggedIn, users.changePassword)
 }

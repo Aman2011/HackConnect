@@ -431,9 +431,9 @@ exports.verifyUser = function (req, res) {
     })
 }
 
-exports.resetPassword = function (req, res) {
-    var id = req.flash('id')[0];
-    var password = req.body.password;
+exports.resetPassword = function (req, res, id, password, type) {
+    var id = id;
+    var password = password;
     var userPassword = {};
     userPassword.salt = encrypt.createSalt();
     userPassword.hashed_password = encrypt.hashPassword(userPassword.salt, password);
@@ -443,12 +443,16 @@ exports.resetPassword = function (req, res) {
             res.redirect('/error');
         }
         if(result) {
-            VerificationToken.remove({_userId: id}, function (err, result) {
-                if(err) {
-                    console.log(err);
-                }
-                if(result) res.redirect('/login');
-            })
+            if(type == "forgot") {
+                VerificationToken.remove({_userId: id}, function (err, result) {
+                    if(err) {
+                        console.log(err);
+                    }
+                    if(result) res.redirect('/login');
+                })
+            }else {
+             res.send(true);
+            }
         }
     })
 }
@@ -489,4 +493,15 @@ exports.getConnectionStatus = function (req, res) {
         if(err) console.log(err);
         res.send(status);
     })
+}
+
+exports.changePassword = function (req, res) {
+    var password = req.body;
+    User.findById({ _id :  req.user._id}, function(err, user) {
+        if(user && user.authenticate(password.old)){
+            exports.resetPassword(req, res, user._id, password.new);
+        } else {
+            res.send("error");
+        }
+    });
 }

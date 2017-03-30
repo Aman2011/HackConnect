@@ -62,7 +62,7 @@ angular.module('app')
             if(id === "#editProfessionalDetails") {
                 if(!$scope.initProfessionalDetails) {
                     dataService.initPrefetchTypeahead();
-                    dataService.initSchoolTypeahead();
+                    $scope.getData("schools");
                     $scope.initProfessionalDetails = true;
                 }
                 $scope.profile = angular.copy($scope.userData);
@@ -127,6 +127,19 @@ angular.module('app')
             }
             return state;
 
+        }
+
+        $scope.getData = function (filename) {
+            $http.get('/data/'+ filename + ".json").then(function (response) {
+                $scope[filename] = response.data;
+            }, function (error) {
+
+            })
+        }
+
+        $scope.onSelect = function ($item, $model, $label) {
+            $scope.profile.education.school = $item.name;
+            $scope.profile.education.country = $item.country;
         }
 
     })

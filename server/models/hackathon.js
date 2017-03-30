@@ -30,7 +30,7 @@ var hackathonSchema = mongoose.Schema({
     image: String,
     logo: String,
     rules: [{type: String}],
-    prizes: [{value: String, category: [{type: String}]}],
+    prizes: [{value: String, category: {type: String}}],
     sponsors: [{logo: String, link: String}],
     eligibility: String,
     participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true}]

@@ -1,5 +1,8 @@
-
-
+script(type='text/ng-template', id='schoolTpl.html').
+    <a tabindex="-1">
+    <div>{{match.model.name}}</div>
+    <div class='clr-gray-light'>{{match.model.country}}</div>
+    </a>
 
 .bg-img
     .user-header.no-margin
@@ -8,7 +11,7 @@
                 .pull-left
                     h2.clr-white.no-mg-top
                         strong {{userData.name}}
-                    h4.clr-white.text-center {{userData.role}}
+                    h4.clr-white {{userData.role}}
                 .pull-right
                     button.btn.btn-outline(data-toggle="modal" data-target="#editProfileModal") Edit Header
 .container
@@ -215,9 +218,14 @@
                 div.education-section
                     .form-group
                         label(for="school") School
-                        .prefetch
-                            input.hidden#school-country(name="school_country" ng-model="profile.education.country")
-                            input#school.form-control.school-typeahead(type="text" name="school" data-file-name="schools" ng-model="profile.education.school")
+                        input.hidden#school-country(name="school_country" ng-model="profile.education.country")
+                        input#school.form-control(type="text"
+                        name="school"
+                        ng-model="profile.education.school"
+                        uib-typeahead="school as school.name for school in schools | filter:{name: $viewValue} | limitTo: 8"
+                        typeahead-template-url="schoolTpl.html"
+                        typeahead-on-select="onSelect($item, $model, $label)")
+
                     .form-group
                         label(for="degree") Degree
                         .prefetch

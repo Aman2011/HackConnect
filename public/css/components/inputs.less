@@ -21,3 +21,27 @@ label {
   font-weight: normal;
   font-size: 18px;
 }
+
+.form-group.has-error.has-feedback {
+  margin-bottom: 0;
+  &:after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 18px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f06a";
+    position: absolute;
+    bottom: 11px;
+    right: 11px;
+    color: @brand-danger;
+  }
+  .form-control {
+    border-color: @brand-danger;
+  }
+  &+.error-message {
+    color: @brand-danger;
+    margin-bottom: 15px;
+  }
+}

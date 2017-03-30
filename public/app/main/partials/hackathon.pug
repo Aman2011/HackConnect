@@ -1,8 +1,9 @@
-.hackathon-header
-    .hackathon-img
+.hackathon-header(ng-class="{'long':hackathonData.logo}")
+    img.hackathon-img(ng-src="{{hackathonData.image | trustUrl}}")
     .container
             .pull-left
                 .hackathon-info
+                    img.hackathon-logo(ng-class="{'mg-bottom-10':hackathonData.logo}" ng-src="{{hackathonData.logo | trustUrl}}")
                     h2.clr-white.no-mg-top.mg-bottom-5.text-center
                         strong {{hackathonData.name}}
                     h4.clr-white.text-center.date
@@ -30,7 +31,6 @@
             a(data-toggle='tab', data-target='#home') Home
         li
             a(data-toggle='tab', data-target='#participants' ng-click="getParticipants()") Participants
-
 .container.mg-top-40
     .tab-content
         #home.tab-pane.fade.in.active
@@ -62,7 +62,7 @@
                                         p.similar-location {{profile.role}} - {{profile.address.city}}, {{profile.address.country}}
                                         label.label.label-default(ng-repeat="skill in profile.skills") {{skill}}
                                 .col-sm-2.similar-right
-                                    a.message-icon(ng-click="")
+                                    a.message-icon(ng-click="openMessageModal(user)")
                                         i.fa.fa-envelope-o.fa-lg
                             hr.no-margin.clr-gray-lighter
                 .col-sm-4
@@ -86,17 +86,15 @@
                             .panel-title
                                 h3 Prizes
                         .panel-body
-                            h4.clr-secondary.bold.no-mg-top $3,000 in prizes
                             .categories
-                                h5.bold Grand Prize
-                                h5.bold Second Place
-                                h5.bold Third Place
-
+                                p.prize(ng-repeat="prize in hackathonData.prizes") {{prize.category[0]}}
                     #sponsors.panel.panel-default.mg-bottom-30
                         .panel-heading
                             .panel-title
                                 h3 Sponsors
                         .panel-body
+                            a(ng-repeat="sponsor in hackathonData.sponsors" ng-href="{{sponsor.link}}")
+                                img.sponsor( ng-src="{{sponsor.logo | trustUrl}}")
         #participants.tab-pane.fade
             .row.mg-bottom-20.search
                 .col-sm-6.col-sm-offset-3

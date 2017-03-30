@@ -156,20 +156,19 @@ exports.findPotentialTeammates = function (req, res, next) {
             participants.sort(function (a, b) {
                 return b.compatibility - a.compatibility;
             })
-            var roleCount = {
-                "Back End Developer": 0,
-                "Front End Developer": 0,
-                "Full Stack Developer": 0,
-                "Web Developer": 0,
-                "UI Developer": 0,
-                "Designer": 0
-            }
+            var roleCount = {}
+            roleNames.forEach(function (role) {
+                roleCount[role] = 0;
+            })
             var team = [];
+            var others = [];
             participants.forEach(function (participant) {
                 var role = participant.profile.role;
                 roleCount[role] = roleCount[role] + 1;
-                if(roleCount[role] <= 2) {
+                if(roleCount[role] <= 1) {
                     team.push(participant);
+                } else {
+                    others.push(participant);
                 }
             })
 

@@ -39,5 +39,8 @@
   ],
   "Mobile Developer": [
     {"name": "Mobile Developer", "score": 40}
+  ],
+  "Database Developer": [
+    {"name": "Back End Developer", "score": 40}
   ]
 }

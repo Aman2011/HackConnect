@@ -323,3 +323,31 @@
     border-radius: 50%;
   }
 }
+
+#prizes.panel {
+  .prize {
+    border-bottom: 1px solid @gray-lighter;
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+    &:first-child {
+      border-top: 1px solid @gray-lighter;
+    }
+
+    &:before {
+      font-family: FontAwesome;
+      content: "\f006";
+      margin-right: 5px;
+      color: @brand-primary;
+      font-size: 16px;
+    }
+  }
+}
+
+#sponsors.panel {
+  .sponsor {
+    width: 60%;
+    margin-top: -30px;
+  }
+}
