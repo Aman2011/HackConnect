@@ -25,7 +25,7 @@ module.exports = {
         linkedInAuth: {
             'clientID': '77knpgir45dxaf',
             'clientSecret': 'nDEKILjFBCIqdCDe',
-            'callbackURL': 'http://localhost:7700/auth/linkedIn/callback'
+            'callbackURL': 'https://hackconnect.herokuapp.com/auth/linkedIn/callback'
         },
         verifyUrlPrefix: "http://hackconnect.herokuapp.com/"
     }
