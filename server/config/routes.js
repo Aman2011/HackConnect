@@ -26,16 +26,14 @@ module.exports = function (app, passport) {
     app.get('/home', auth.isLoggedIn, users.isUserVerified, users.isProfileCreated, function (req, res) {
         res.render('index', {
             bootstrappedUser: req.user,
-            environment: env
-
+            url: config.website
         });
     });
 
     app.get('/create_profile', auth.isLoggedIn, users.isUserVerified, function (req, res) {
         res.render('create-profile', {
             bootstrappedUser: req.user,
-            environment: env
-
+            url: config.website
         });
     })
     app.post('/create_profile', users.createProfile);

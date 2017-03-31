@@ -10,19 +10,19 @@ angular.module('app')
         $scope.userName = window.bootstrappedUserObject.name;
         $scope.isInbox = $scope.$parent.isInbox;
 
-        if(!$scope.isInbox()) {
-            socket.on('message-received', function (data) {
+        socket.on('message-received', function (data) {
+            if(!$scope.isInbox()) {
                 console.log(data);
                 var newConversation = true;
                 angular.forEach($scope.conversations, function (conversation) {
-                    if(data.conversationId == conversation._id) {
+                    if (data.conversationId == conversation._id) {
                         conversation.message = data;
                         conversation.count += 1;
 
                         newConversation = false;
                     }
                 })
-                if(newConversation) {
+                if (newConversation) {
                     var conversation = {
                         _id: data.conversationId,
                         message: data,
@@ -32,8 +32,9 @@ angular.module('app')
                 }
                 $scope.conversationsCounter += 1;
                 notifier.notify("You have received a new message");
-            })
-        }
+            }
+        })
+
 
         $scope.checkRoute = function (route) {
             var location = $location.absUrl().toString();
