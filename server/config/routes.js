@@ -7,6 +7,10 @@ var auth = require('./auth'),
     emailVerification = require('../config/emailVerification'),
     User = require('mongoose').model('User');
 
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var config = require('../config/config')[env];
+
+
 module.exports = function (app, passport) {
     // sending json data for options
     app.get('/data/*', function (req, res) {
@@ -21,13 +25,17 @@ module.exports = function (app, passport) {
 
     app.get('/home', auth.isLoggedIn, users.isUserVerified, users.isProfileCreated, function (req, res) {
         res.render('index', {
-            bootstrappedUser: req.user
+            bootstrappedUser: req.user,
+            environment: env
+
         });
     });
 
     app.get('/create_profile', auth.isLoggedIn, users.isUserVerified, function (req, res) {
         res.render('create-profile', {
-            bootstrappedUser: req.user
+            bootstrappedUser: req.user,
+            environment: env
+
         });
     })
     app.post('/create_profile', users.createProfile);
@@ -151,7 +159,8 @@ module.exports = function (app, passport) {
     // default route
     app.get('*', auth.isLoggedIn, users.isUserVerified, users.isProfileCreated, function (req, res) {
         res.render('index', {
-            bootstrappedUser: req.user
+            bootstrappedUser: req.user,
+            url: config.website
         });
     });
 

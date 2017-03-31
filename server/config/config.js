@@ -4,6 +4,7 @@ var rootPath = path.normalize(__dirname + '/../../')
 module.exports = {
     development: {
         db: 'mongodb://localhost/hackconnect',
+        website: 'http://localhost:7700',
         rootPath: rootPath,
         port: process.env.PORT || 7700,
         email: 'amanrawal84@gmail.com',
@@ -18,6 +19,7 @@ module.exports = {
     },
     production: {
         db: 'mongodb://admin:Hack2011@ds163667.mlab.com:63667/hackconnect',
+        website: 'http://hackconnect.herokuapp.com',
         rootPath: rootPath,
         port: process.env.PORT || 80,
         email: 'amanrawal84@gmail.com',

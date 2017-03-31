@@ -16,7 +16,8 @@ script(type="text/javascript", src="/vendor/typeahead.js/dist/typeahead.jquery.j
 script(type="text/javascript", src="/vendor/typeahead.js/dist/bloodhound.js")
 script(type="text/javascript", src="/socket.io/socket.io.js")
 script.
-    var socket = io.connect("http://localhost:7700");
+    console.log(window.url);
+    var socket = io.connect(window.url);
     socket.emit('log in', {
         id: window.bootstrappedUserObject._id
     })
