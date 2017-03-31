@@ -19,7 +19,7 @@ module.exports = {
     },
     production: {
         db: 'mongodb://admin:Hack2011@ds163667.mlab.com:63667/hackconnect',
-        website: 'http://hackconnect.herokuapp.com',
+        website: 'https://hackconnect.herokuapp.com',
         rootPath: rootPath,
         port: process.env.PORT || 80,
         email: 'amanrawal84@gmail.com',
