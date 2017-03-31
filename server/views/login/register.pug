@@ -1,4 +1,4 @@
-form.ng-cloak(name="register" action='/signup' method="POST" ng-controller="RegisterCtrl" novalidate)
+form(name="register" action='/signup' method="POST" ng-controller="RegisterCtrl" novalidate)
     .form-group
         label.sr-only(for="name")
         input.form-control#name(type="text" name="name" placeholder="Full Name" ng-model="name" required)
