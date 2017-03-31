@@ -8,7 +8,7 @@
                 span.icon-bar
             a.navbar-brand.no-padding(href="/")
                 img(src='/img/logo.png')
-        .navbar-collapse.collapse
+        #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav(ng-if="checkCreateProfile()")
                 li(ng-class="checkRoute('profile,home')")
                     a(href='/profile') Profile
@@ -89,7 +89,7 @@
                                 li
                                     a(data-toggle="modal" data-target="#changePasswordModal") Change Password
                                 li
-                                    a(data-toggle="modal") Update Preferences
+                                    a(data-toggle="modal" data-target="#preferencesModal") Update Preferences
 
                         li.manage
                             h5.no-margin
@@ -157,4 +157,30 @@
                 h4 {{confirmation.text}}
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+#preferencesModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Update Preferences
+            .modal-body
+                .form-group
+                    label.block(for="role") Role
+                    select.form-control.hidden#role(name="role")
+                        option(value="")
+                        option(ng-repeat="role in roles track by $index" value="{{role}}" ng-selected="preferences.role == role")
+                    label.label.label-default(ng-repeat="role in roles track by $index" ng-click="selectRole(role)" ng-class="preferences.role == role ? 'active':''")
+                        | {{role}}
+                .form-group
+                    label.block(for="typeProject") What type of projects are you interested in?
+                    select.form-control.hidden#typeProject(name="projectTypes" multiple)
+                        option(ng-repeat="projectType in preferences.projectTypes track by $index" value="{{projectType}}" selected)
+                    label.label.label-default(ng-repeat="projectType in projectTypes track by $index" ng-click="toggleProjectType(projectType)" ng-class="{'active': isSelected(projectType)}")
+                        | {{projectType}}
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-primary(type='button' ng-click="updatePreferences(preferences)") Save
+
 

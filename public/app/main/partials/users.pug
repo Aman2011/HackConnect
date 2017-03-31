@@ -4,16 +4,16 @@
             h1.clr-white Search People
 .container.mg-top-40
     .row.mg-bottom-20.search
-        .col-sm-8.col-sm-offset-2
+        .col-xs-8.col-xs-offset-2
             .row
-                .col-sm-10
+                .col-xs-10
                     .form-group
                         label.sr-only(for="search")
                         input.form-control#search(type="text" name="search" placeholder="search by name" ng-model="searchText")
-                .col-sm-2
+                .col-xs-2
                     button.btn.btn-primary(ng-click="search()") Search
     .row.cards
-        .col-sm-3.mg-bottom-20(ng-repeat="user in users")
+        .col-sm-3.col-xs-12.mg-bottom-20(ng-repeat="user in users")
             .card.user-card(ng-click="openUserProfile(user._id) | limitTo: 12")
                 img.profile-pic(ng-src="{{user.profile.picture | trustUrl}}")
                 div.user-details

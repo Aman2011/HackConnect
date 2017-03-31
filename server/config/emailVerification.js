@@ -64,10 +64,10 @@ _.templateSettings = {
 
 function getHtml(token, type) {
     var path = 'server/views/html/email-verification.html';
-    model.verifyUrl = 'http://localhost:7700/verify/' + token;
+    model.verifyUrl = config.verifyUrl + 'verify/' + token;
     if(type === "password") {
         path = 'server/views/html/forgot-password.html';
-        model.verifyUrl = 'http://localhost:7700/forgot-password/' + token;
+        model.verifyUrl = config.verifyUrl + 'forgot-password/' + token;
     }
     var html = fs.readFileSync(path, encoding = 'utf8');
     var template = _.template(html);

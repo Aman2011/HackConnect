@@ -45,8 +45,13 @@
   padding: 0;
   padding-bottom: 10px;
   img {
-    width: 100%;
+    width: 50%;
     height: auto;
+    margin-top: 20px;
+
+    @media(max-width: @screen-xs-max) {
+      width: 20%;
+    }
   }
   .location {
     margin-bottom: 15px;

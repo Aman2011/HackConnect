@@ -3,7 +3,9 @@ angular.module('app')
         var search = $location.search();
         $scope.hackathonData = initialData.hackathonData;
         console.log($scope.hackathonData);
-        $scope.team = initialData.team;
+        $scope.team = initialData.participants.team;
+        $scope.potentialTeammates = initialData.participants.all;
+        console.log($scope.potentialTeammates);
         $scope.participants = [];
         $scope.searchText = "";
         $scope.orderType = "name";

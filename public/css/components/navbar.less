@@ -27,6 +27,11 @@
       background-color: transparent;
     }
   }
+
+  .navbar-toggle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 .navbar-default .navbar-nav {
@@ -203,6 +208,18 @@
       a {
         padding: 13px 18px;
       }
+    }
+  }
+
+  @media(max-width: @screen-xs-max) {
+    > li > a {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .navbar-toggle {
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
   }
 }

@@ -12,7 +12,8 @@ module.exports = {
             'clientID': '77knpgir45dxaf',
             'clientSecret': 'nDEKILjFBCIqdCDe',
             'callbackURL': 'http://localhost:7700/auth/linkedIn/callback'
-        }
+        },
+        verifyUrlPrefix: "http://localhost:7700/"
 
     },
     production: {
@@ -25,7 +26,7 @@ module.exports = {
             'clientID': '77knpgir45dxaf',
             'clientSecret': 'nDEKILjFBCIqdCDe',
             'callbackURL': 'http://localhost:7700/auth/linkedIn/callback'
-        }
-
+        },
+        verifyUrlPrefix: "http://hackconnect.herokuapp.com/"
     }
 }

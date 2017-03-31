@@ -73,6 +73,23 @@ exports.updateProfile = function (req, res) {
     })
 }
 
+exports.updatePreferences = function (req, res) {
+    var data = req.body;
+    var obj = {
+        "profile.role": data.role,
+        "profile.projectTypes": data.projectTypes
+    };
+    User.findOneAndUpdate({_id: req.user._id}, obj, function (err, result) {
+        if(err) {
+            console.log(err);
+            res.send(false);
+        }
+        if(result) {
+            res.send(true);
+        }
+    })
+}
+
 exports.uploadImage = function (req, res) {
     upload(req,res,function(err){
         if(err){

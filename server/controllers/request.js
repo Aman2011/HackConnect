@@ -19,7 +19,7 @@ exports.sendRequest = function (req, res, next) {
                 }
                 Request.findOne(request).populate({
                     path: "sender",
-                    select: "name"
+                    select: "name profile.picture"
                 }).exec(function (err, request) {
                     res.send(request)
                 })

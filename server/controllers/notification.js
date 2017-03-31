@@ -14,9 +14,9 @@ exports.sendNotification = function (req, res) {
                 if(err) {
                     console.log(err);
                 }
-                Notification.populate(notification,{
+                Notification.findOne(notification).populate({
                     path: "sender",
-                    select: "name"
+                    select: "name profile.picture"
                 },function (err, notification) {
                     res.send(notification)
                 })

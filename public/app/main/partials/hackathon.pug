@@ -53,7 +53,7 @@
                             .panel-title
                                 h3 Potential Team mates
                         .panel-body
-                            .row(ng-repeat="user in team track by $index | limitTo: 4" ng-init="profile = user.profile")
+                            .row(ng-repeat="user in team | orderBy: '-compatibility' | limitTo: 3" ng-init="profile = user.profile")
                                 .col-sm-10.similar-left
                                     img.similar-thumbnail(ng-src="{{profile.picture | trustUrl}}")
                                     .similar-description
@@ -65,6 +65,8 @@
                                     a.message-icon(ng-click="openMessageModal(user)")
                                         i.fa.fa-envelope-o.fa-lg
                             hr.no-margin.clr-gray-lighter
+                            .text-center.pd-top-20
+                                a(data-toggle="modal" data-target="#potentialTeamModal") See Full List
                 .col-sm-4
                     #essential-info.panel.panel-default.mg-bottom-30
                         .panel-heading
@@ -133,6 +135,29 @@
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') Close
                 button.btn.btn-primary(type='button' ng-click="sendMessage(content)") Send Message
+
+#potentialTeamModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+                h4.modal-title Potential Team mates
+            .modal-body
+                .row(ng-repeat="user in potentialTeammates | orderBy: '-compatibility'" ng-init="profile = user.profile")
+                    .col-sm-10.similar-left
+                        img.similar-thumbnail(ng-src="{{profile.picture | trustUrl}}")
+                        .similar-description
+                            a
+                                h4.similar-heading {{user.name}}
+                            p.similar-location {{profile.role}} - {{profile.address.city}}, {{profile.address.country}}
+                            label.label.label-default(ng-repeat="skill in profile.skills") {{skill}}
+                    .col-sm-2.similar-right
+                        a.message-icon(ng-click="openMessageModal(user)")
+                            i.fa.fa-envelope-o.fa-lg
+                hr.no-margin.clr-gray-lighter
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 
 

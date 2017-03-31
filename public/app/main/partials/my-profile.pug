@@ -222,7 +222,7 @@ script(type='text/ng-template', id='schoolTpl.html').
                         input#school.form-control(type="text"
                         name="school"
                         ng-model="profile.education.school"
-                        uib-typeahead="school as school.name for school in schools | filter:{name: $viewValue} | limitTo: 8"
+                        uib-typeahead="school as school.name for school in schools | filter:{name: $viewValue} | limitTo: 25"
                         typeahead-template-url="schoolTpl.html"
                         typeahead-on-select="onSelect($item, $model, $label)")
 

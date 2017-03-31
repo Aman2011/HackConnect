@@ -171,8 +171,14 @@ exports.findPotentialTeammates = function (req, res, next) {
                     others.push(participant);
                 }
             })
-
-            callback(null, team);
+            while(team.length < 3) {
+                team.push(others.splice(0, 1));
+            }
+            var results = {
+                team: team,
+                all: participants
+            }
+            callback(null, results);
         }
     ]
     

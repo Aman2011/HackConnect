@@ -1,6 +1,13 @@
 angular.module('app')
     .controller('MainCtrl', function ($scope, $location, $http, $window) {
+        $scope.user = $window.bootstrappedUserObject;
+        $scope.roles = [];
+        $scope.projectTypes = [];
         $scope.name = $window.bootstrappedUserObject.name;
+        $scope.preferences = {
+            role: $scope.user.profile.role,
+            projectTypes: angular.copy($scope.user.profile.projectTypes)
+        }
         $scope.confirmation = {
             title: "",
             icon: "",
@@ -11,7 +18,6 @@ angular.module('app')
             if($location.path().includes("/inbox")) {
              return true;
             }
-
             return false;
         }
 
@@ -52,6 +58,51 @@ angular.module('app')
             }
         }
 
+        $scope.getData = function (filename) {
+            $http.get('/data/'+ filename + ".json").then(function (response) {
+                $scope[filename] = response.data;
+            }, function (error) {
+
+            })
+        }
+
+        $scope.isSelected = function (projectType) {
+            if($scope.preferences.projectTypes.indexOf(projectType) != -1) return true;
+            return false;
+        }
+
+        $scope.toggleProjectType = function(projectType) {
+            if($scope.preferences.projectTypes.indexOf(projectType) == -1) {
+                $scope.preferences.projectTypes.push(projectType);
+            } else {
+                var index = $scope.preferences.projectTypes.indexOf(projectType);
+                $scope.preferences.projectTypes.splice(index, 1);
+            }
+        }
+
+        $scope.selectRole = function(role) {
+            $scope.preferences.role = role;
+        }
+
+        $scope.updatePreferences = function (preferences) {
+            $http.post('/profile/preferences/update', preferences).then(function (response) {
+                if(response.data) {
+                    $window.location.reload();
+                }
+            })
+        }
+
+        $('#preferencesModal').on('hidden.bs.modal', function () {
+            $scope.$apply(function () {
+                $scope.preferences = {
+                    role: $scope.user.profile.role,
+                    projectTypes: angular.copy($scope.user.profile.projectTypes)
+                }
+            })
+        })
+
+        $scope.getData("roles");
+        $scope.getData("projectTypes");
 
     });
 

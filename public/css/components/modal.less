@@ -25,3 +25,71 @@
 .modal-footer {
   border: none;
 }
+
+#potentialTeamModal.modal {
+  .modal-body {
+    max-height: 500px;
+    overflow: auto;
+  }
+  .modal-body > .row {
+    border-bottom: 1px solid @gray-lighter;
+    display: flex;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    &:first-child {
+      padding-top: 0;
+    }
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .modal-body hr:last-of-type {
+    display: none;
+  }
+
+  .similar-left {
+    display: flex;
+    align-items: center;
+    .similar-thumbnail {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+    .similar-description {
+      margin-left: 20px;
+      display: inline-block;
+      .similar-heading {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-transform: capitalize;
+        display: inline-block;
+      }
+      .similar-location {
+        color: @gray-light;
+        margin: 0;
+      }
+      .label {
+        margin-bottom: 0;
+        margin-top: 5px;
+        font-size: 80%;
+      }
+
+      a {
+        // color: @gray-dark;
+      }
+      a:hover, a:active {
+        text-decoration: none;
+        // color: @brand-primary;
+        cursor: pointer;
+      }
+    }
+  }
+  .similar-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
