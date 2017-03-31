@@ -156,6 +156,33 @@
 
 }
 
+.full-screen {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.zIndex-10--loadingPage {
+  z-index: 1000;
+}
+
+#loading-bar .bar {
+  background-color: @brand-primary;
+}
+#loading-bar-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  .spinner-icon {
+    width: 50px;
+    height: 50px;
+    border-top-color: @brand-primary;
+    border-bottom-color: @brand-primary;
+    border-left-color: @brand-primary;
+  }
+}
 // for angular bootstrap library
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
