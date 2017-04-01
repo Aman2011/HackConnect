@@ -97,7 +97,7 @@
                                 | Manage
                             ul.list-unstyled
                                 li
-                                    a(ng-click="logout()") Logout
+                                    a(href="/logout" target="_self") Logout
             ul.nav.navbar-nav.navbar-right(ng-if="!checkCreateProfile()")
                 li.dropdown.logout
                     a.dropdown-toggle(type='button', data-toggle='dropdown')
@@ -105,7 +105,7 @@
                         i.fa.fa-angle-down.fa-lg.mg-left-10
                     ul.no-padding.dropdown-menu.settings
                         li.manage
-                            a.pd-all-10(ng-click="logout()") Logout
+                            a.pd-all-10(href="/logout" target="_self") Logout
 
 #nameModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
     .modal-dialog(role='document')

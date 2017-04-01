@@ -24,9 +24,9 @@ exports.createUser = function (req, res, next) {
         }
         req.logIn(user, function(err) {
             if(err) return next(err);
-//            var token = emailVerification.createVerificationToken(user._id);
-//            emailVerification.send(user.email, token);
-//            res.redirect('/verify');
+           var token = emailVerification.createVerificationToken(user._id);
+           emailVerification.send(user.email, token);
+           res.redirect('/verify');
             res.redirect("/create_profile");
         })
     })

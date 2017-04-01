@@ -41,12 +41,16 @@ module.exports = function (app, passport) {
 
     app.get('/verify/:token', users.verifyEmail);
 
-    app.get('/verify', function(req, res) {
-       res.render('verify-email')
+    app.get('/verify', auth.isLoggedIn, function(req, res) {
+       res.render('verify-email', {
+           name: "verify-email",
+           userName: req.user.name,
+           email: req.user.email
+       })
     });
 
     app.get('/login', auth.redirectIfLoggedIn, function(req, res) {
-            res.render('login', { signUpMessage: req.flash('signUpError'), loginMessage: req.flash('error')});
+            res.render('login', { signUpMessage: req.flash('signUpError'), loginMessage: req.flash('error'), name: "login"});
     });
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/home',
@@ -54,9 +58,9 @@ module.exports = function (app, passport) {
         failureFlash: true
     }));
     app.post('/signup', users.createUser);
-    app.post('/logout', function(req, res) {
+    app.get('/logout', function(req, res) {
         req.logout();
-        res.send(true);
+        res.redirect('/login');
     });
 
     // forgot password
@@ -85,7 +89,7 @@ module.exports = function (app, passport) {
 
 
     //ajax
-    app.get('/resendVerificationLink', emailVerification.resendVerificationLink)
+    app.get('/resendVerificationLink', auth.isLoggedIn, emailVerification.resendVerificationLink)
 
     app.get('/profile/data', auth.isLoggedIn, users.isUserVerified, function (req, res) {
         users.getProfileData(req.user._id, function(data) {

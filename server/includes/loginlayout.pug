@@ -5,7 +5,7 @@ html
         base(href="/")
         //link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
         include login-head
-    body.ng-cloak(ng-app="app")
+    body.ng-cloak(ng-app="app" ng-controller='MainCtrl')
         .navbar.navbar-default.navbar-static-top
             .container
                 .navbar-header
@@ -16,15 +16,21 @@ html
                         span.icon-bar
                     a.navbar-brand.no-padding(href="/")
                         img(src='/img/logo.png')
+                if name == "verify-email"
+                    #navbar.navbar-collapse.collapse
+                        ul.nav.navbar-nav.navbar-right
+                            li.dropdown.logout
+                                a.dropdown-toggle(type='button', data-toggle='dropdown')
+                                    | #{userName}
+                                    i.fa.fa-angle-down.fa-lg.mg-left-10
+                                ul.no-padding.dropdown-menu.settings
+                                    li.manage
+                                        a.pd-all-10(href="/logout" target="_self") Logout
         block main-content
         footer.text-center
             p.no-margin &copy; 2016 HackConnect
 
         include login-scripts
-        script(type="text/javascript", src="/app/account/app.js")
-        script(type="text/javascript", src="/app/account/controllers/register.js")
-        script(type="text/javascript", src="/app/account/controllers/login.js")
-        script(type="text/javascript", src="/app/account/directives/validateEquals.js")
 
 
 

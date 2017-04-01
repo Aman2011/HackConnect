@@ -1,16 +1,15 @@
-extends ../includes/layout
+extends ../includes/loginlayout
 
 block main-content
-    .navbar.navbar-fixed-top
-        .container
-            .navbar-header
-                a.navbar-brand(href="/") HackConnect
-            .navbar-collapse.collapse
-                ul.nav.navbar-nav
-                    li
-                        a(href='/') Home
-                    li
-                        a.btn.btn-primary(ng-href="/logout") Logout
     section.content
-        a.btn.btn-primary(href='/resendVerificationLink') Send verification link again
+        .container.pd-top-40
+            .row
+                .col-sm-10.col-sm-offset-1.text-center
+                    h1.mg-bottom-30.clr-secondary Verify your email address to access HackConnect
+                    i.block.fa.fa-envelope-o.clr-secondary.fa-5x.mg-bottom-20
+                    h4.bold.mg-bottom-30 We have just sent an email to your address: #{email}
+                    h5.mg-bottom-30 Please check your email and click on the link provided to verify your email address
+                    p.clr-gray-light.mg-bottom-20 Didn't receive the email? Click on the button below to resend
+                    a.btn.btn-primary(ng-click="resendLink()") Resend Verification Email
+
 

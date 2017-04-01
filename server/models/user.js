@@ -44,7 +44,7 @@ var userSchema = mongoose.Schema({
         token: String
     },
     roles: [],
-    verify: {type: Boolean, default: true}
+    verify: {type: Boolean, default: false}
 });
 
 userSchema.methods = {

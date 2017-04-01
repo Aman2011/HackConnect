@@ -94,14 +94,6 @@ angular.module('app')
 
         }
 
-        $scope.logout = function () {
-            $http.post('/logout').then(function(response) {
-                if(response) {
-                    $window.location.reload();
-                }
-            });
-        }
-
         $scope.getAllNotifications = function () {
             $http.get('profile/notifications').then(function (response) {
                 console.log(response);

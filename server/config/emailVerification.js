@@ -11,7 +11,9 @@ var VerificationToken = require('mongoose').model('VerificationToken'),
         verifyUrl: '',
         title: 'HackConnect',
         subTitle: 'Thanks for signing up!',
-        body: 'Please verify your email address by clicking the button below'
+        body: 'Please verify your email address by clicking the button below',
+        website: config.website,
+        rootPath: config.rootPath
     }
 
 exports.createVerificationToken = function(userId){
@@ -56,6 +58,7 @@ exports.resendVerificationLink = function (req, res, next) {
     var userId = req.user._id;
     var token = exports.createVerificationToken(userId);
     exports.send(req.user.email, token);
+    res.send(true);
 }
 
 _.templateSettings = {
@@ -64,10 +67,10 @@ _.templateSettings = {
 
 function getHtml(token, type) {
     var path = 'server/views/html/email-verification.html';
-    model.verifyUrl = config.verifyUrl + 'verify/' + token;
+    model.verifyUrl = config.website + '/verify/' + token;
     if(type === "password") {
         path = 'server/views/html/forgot-password.html';
-        model.verifyUrl = config.verifyUrl + 'forgot-password/' + token;
+        model.verifyUrl = config.website + '/forgot-password/' + token;
     }
     var html = fs.readFileSync(path, encoding = 'utf8');
     var template = _.template(html);

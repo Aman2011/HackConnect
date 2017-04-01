@@ -3,7 +3,7 @@ angular.module('app')
         $scope.user = $window.bootstrappedUserObject;
         $scope.roles = [];
         $scope.projectTypes = [];
-        $scope.name = $window.bootstrappedUserObject.name;
+        $scope.name = $scope.user ? $scope.user.name : '';
         $scope.preferences = {
             role: $scope.user.profile.role,
             projectTypes: angular.copy($scope.user.profile.projectTypes)
