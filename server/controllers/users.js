@@ -207,12 +207,16 @@ exports.isProfileCreated = function (req, res, next) {
 //api functions
 exports.getUsers = function(req, res) {
     var id = req.query.test;
-    var filter = {_id: {$ne: req.user._id}};
+    var filter = {$and:[
+        {_id: {$ne: req.user._id}},
+        {verify: true}
+    ]};
     if(id != undefined) {
         filter = {
             $and:[
                 {_id: {$gt: id}},
-                {_id: {$ne: req.user._id}}
+                {_id: {$ne: req.user._id}},
+                {verify: true}
             ]
         };
     }
